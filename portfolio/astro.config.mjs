@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://jorditoda.github.io/yapplic',
+  site: 'https://yapplic.com',
   outDir: 'dist'
 });
