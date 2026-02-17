@@ -3,7 +3,7 @@ run-name: Deploy Yapplic website on GitHub pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
