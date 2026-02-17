@@ -1,17 +1,51 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AppCard from "../components/AppCard.astro";
 
+const apps = [
+  {
+    title: "Rally HUD",
+    description: "HUD minimalista para pilotos de rally.",
+    link: "/apps/rally-hud"
+  },
+  {
+    title: "Like This",
+    description: "Comparte y descubre recomendaciones fácilmente.",
+    link: "/apps/like-this"
+  },
+  {
+    title: "PointerPointer",
+    description: "Juego de precisión y reflejos.",
+    link: "/apps/pointerpointer"
+  },
+  {
+    title: "Hold King",
+    description: "¿Cuánto tiempo puedes aguantar el botón?",
+    link: "/apps/hold-king"
+  },
+  {
+    title: "Sad Trombone",
+    description: "El clásico sonido de fail, siempre a mano.",
+    link: "/apps/sad-trombone"
+  }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Jordi — Mobile Developer">
+
+  <section class="hero">
+    <h1>Jordi</h1>
+    <p>Desarrollador amateur de apps móviles · iOS & Android</p>
+  </section>
+
+  <section>
+    <h2>Mis Apps</h2>
+
+    <div class="apps-grid">
+      {apps.map(app => (
+        <AppCard {...app} />
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
