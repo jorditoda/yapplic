@@ -1,5 +1,5 @@
 name: Deploy Astro site to GitHub Pages
-run_name: Deploy Yapplic website on GitHub pages
+run-name: Deploy Yapplic website on GitHub pages
 
 on:
   push:
