@@ -1,40 +1,70 @@
 ---
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 const { title = "Yapplic" } = Astro.props;
 ---
-
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
 
   <body>
-  <Header />
+    <Header />
+
     <main>
       <slot />
     </main>
+
+    <Footer />
   </body>
 </html>
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-</script>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.2 });
+  document.addEventListener("DOMContentLoaded", () => {
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    // Theme toggle
+   const toggle = document.getElementById("theme-toggle");
+
+     // Load saved theme
+     if (localStorage.theme === "dark") {
+       document.documentElement.classList.add("dark");
+     }
+
+     if (toggle) {
+       toggle.addEventListener("click", () => {
+         document.documentElement.classList.toggle("dark");
+         localStorage.theme = document.documentElement.classList.contains("dark")
+           ? "dark"
+           : "light";
+       });
+     }
+
+    // Header shrink
+    const header = document.getElementById("site-header");
+    if (header) {
+      const onScrollHeader = () => {
+        if (window.scrollY > 40) {
+          header.classList.add("shrink");
+        } else {
+          header.classList.remove("shrink");
+        }
+      };
+      window.addEventListener("scroll", onScrollHeader);
+      onScrollHeader();
+    }
+
+  });
 </script>

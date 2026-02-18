@@ -1,18 +1,54 @@
-
+/* -------------------------------------------------
+   VARIABLES & THEME
+------------------------------------------------- */
 :root {
   --bg: #ffffff;
   --text: #111111;
   --muted: #666666;
   --accent: #007aff;
+  --accent-light: #e5f0ff;
   --radius: 12px;
   --font: 'Inter', sans-serif;
+
+  /* Apple-style spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0d0d;
+    --text: #f2f2f2;
+    --muted: #aaaaaa;
+    --accent: #4da3ff;
+    --accent-light: #1a1a1a;
+  }
+}
+
+/* Manual dark mode override */
+:root.dark {
+  --bg: #0d0d0d;
+  --text: #f2f2f2;
+  --muted: #aaaaaa;
+  --accent: #4da3ff;
+  --accent-light: #1a1a1a;
+}
+
+/* -------------------------------------------------
+   GLOBAL
+------------------------------------------------- */
 body {
   margin: 0;
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 main {
@@ -21,6 +57,34 @@ main {
   padding: 2rem;
 }
 
+h2 {
+  margin-bottom: 1rem;
+}
+
+/* -------------------------------------------------
+   HEADER + SHRINK+
+------------------------------------------------- */
+.header {
+  transition: padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
+  padding: 1.2rem 2rem;
+  backdrop-filter: blur(12px);
+}
+
+.header.shrink {
+  padding: 0.4rem 2rem;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .header.shrink {
+    background: rgba(0,0,0,0.5);
+  }
+}
+
+/* -------------------------------------------------
+   HERO
+------------------------------------------------- */
 .hero {
   text-align: center;
   padding: 4rem 0;
@@ -36,46 +100,9 @@ main {
   font-size: 1.2rem;
 }
 
-h2 {
-  margin-bottom: 1rem;
-}
-
-.apps-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.app-card {
-  border: 1px solid #eaeaea;
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  text-decoration: none;
-  color: var(--text);
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-
-.app-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-}
-
-.app-detail {
-  margin-top: 3rem;
-}
-
-.store-button {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.4rem;
-  background: var(--accent);
-  color: white;
-  border-radius: var(--radius);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-/* Fade-in animation */
+/* -------------------------------------------------
+   ANIMACIONES BASE
+------------------------------------------------- */
 .fade-in {
   opacity: 0;
   animation: fadeIn 0.8s ease forwards;
@@ -85,7 +112,6 @@ h2 {
   to { opacity: 1; }
 }
 
-/* Slide-up animation */
 .slide-up {
   opacity: 0;
   transform: translateY(20px);
@@ -99,56 +125,17 @@ h2 {
   }
 }
 
-/* Delays */
 .delay-1 { animation-delay: 0.2s; }
 .delay-2 { animation-delay: 0.4s; }
 .delay-3 { animation-delay: 0.6s; }
 
-/* Intro section */
-.intro {
-  max-width: 700px;
-  margin: 0 auto 3rem auto;
-  text-align: center;
-}
-
-/* App grid hover improvements */
-.app-card {
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.app-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-}:root {
-   --bg: #ffffff;
-   --text: #111111;
-   --muted: #666666;
-   --accent: #007aff;
-   --accent-light: #e5f0ff;
-   --radius: 12px;
-   --font: 'Inter', sans-serif;
- }
-
- @media (prefers-color-scheme: dark) {
-   :root {
-     --bg: #0d0d0d;
-     --text: #f2f2f2;
-     --muted: #aaaaaa;
-     --accent: #4da3ff;
-     --accent-light: #1a1a1a;
-   }
- }
-
- body {
-   background: var(--bg);
-   color: var(--text);
-   transition: background 0.3s ease, color 0.3s ease;
- }
+/* -------------------------------------------------
+   SCROLL REVEAL
+------------------------------------------------- */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .reveal.visible {
@@ -156,14 +143,17 @@ h2 {
   transform: translateY(0);
 }
 
-/* Full app sections */
+/* -------------------------------------------------
+   SECCIONES DE APPS
+------------------------------------------------- */
 .app-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
-  margin: 6rem 0;
-  padding: 2rem 0;
+  margin: var(--space-8) 0;
+  padding: var(--space-7) var(--space-5);
+  border-radius: 24px;
 }
 
 .app-section.left .app-text { order: 1; }
@@ -183,16 +173,20 @@ h2 {
   margin-bottom: 1rem;
 }
 
-.app-text h2 {
-  margin: 0 0 0.5rem 0;
-}
-
 .app-text p {
   color: var(--muted);
   margin-bottom: 1.5rem;
 }
 
-/* CTA button */
+/* Parallax target (solo mockup, sin romper animaciones) */
+.parallax-target {
+  --parallax-offset: 0px;
+  transform: translateY(var(--parallax-offset));
+  transition: transform 0.35s ease-out;
+  will-change: transform;
+}
+
+/* CTA */
 .cta-button {
   display: inline-block;
   padding: 0.8rem 1.4rem;
@@ -209,14 +203,117 @@ h2 {
   background: #005fcc;
 }
 
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+/* -------------------------------------------------
+   ABOUT PAGE
+------------------------------------------------- */
+.about-hero {
+  text-align: center;
+  padding: 6rem 0 3rem;
 }
 
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+.about-hero p {
+  max-width: 600px;
+  margin: 1rem auto 0;
+  color: var(--muted);
+}
+
+.about-section {
+  max-width: 700px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-list li {
+  margin: 0.5rem 0;
+  color: var(--muted);
+}
+
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.tech-grid span {
+  padding: 0.6rem 1rem;
+  background: var(--accent-light);
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.tech-grid span:hover {
+  transform: translateY(-3px);
+}
+
+/* -------------------------------------------------
+   FOOTER
+------------------------------------------------- */
+.footer {
+  text-align: center;
+  padding: 3rem 0;
+  margin-top: 4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+}
+
+/* -------------------------------------------------
+   THEME TOGGLE
+------------------------------------------------- */
+.theme-toggle {
+  margin-left: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text);
+  transition: opacity 0.2s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.6;
+}
+
+/* -------------------------------------------------
+   RESPONSIVE
+------------------------------------------------- */
+@media (max-width: 900px) {
+  .app-section {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .app-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .app-section {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+}
+
+:root.dark .app-section {
+  background: rgba(255, 255, 255, 0.05) !important;
 }

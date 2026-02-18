@@ -1,8 +1,10 @@
-<header class="header">
+<header class="header" id="site-header">
   <a href="/" class="logo">Yapplic</a>
-  <nav>
-    <a href="#apps">Apps</a>
-    <a href="#about">About</a>
+
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <button id="theme-toggle" class="theme-toggle">🌓</button>
   </nav>
 </header>
 
@@ -12,36 +14,66 @@
     top: 0;
     left: 0;
     right: 0;
-    backdrop-filter: blur(12px);
-    background: rgba(255,255,255,0.6);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.6);
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .header {
-      background: rgba(0,0,0,0.4);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
+  /* Shrink effect */
+  .header.shrink {
+    padding: 0.4rem 2rem;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(20px);
+  }
+
+  /* Dark mode */
+  :root.dark .header {
+    background: rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  :root.dark .header.shrink {
+    background: rgba(0,0,0,0.55);
   }
 
   .logo {
     font-weight: 700;
     text-decoration: none;
     color: var(--text);
+    font-size: 1.1rem;
   }
 
-  nav a {
+  .nav a {
     margin-left: 1.5rem;
     text-decoration: none;
     color: var(--text);
     font-weight: 500;
+    transition: color 0.2s ease;
   }
 
-  nav a:hover {
+  .nav a:hover {
     color: var(--accent);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    margin-left: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    opacity: 0.6;
+    transform: scale(1.1);
   }
 </style>
