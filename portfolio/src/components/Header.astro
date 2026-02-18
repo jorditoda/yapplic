@@ -1,0 +1,47 @@
+<header class="header">
+  <a href="/" class="logo">Yapplic</a>
+  <nav>
+    <a href="#apps">Apps</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.6);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .header {
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+  }
+
+  .logo {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  nav a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+  }
+</style>

@@ -1,46 +1,75 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import AppCard from "../components/AppCard.astro";
+import PhoneMockup from "../components/PhoneMockup.astro";
 
 const apps = [
   {
+    id: "rally-hud",
     title: "Rally HUD",
-    description: "HUD minimalista para pilotos de rally.",
-    link: "/apps/rally-hud"
+    description: "A clean and readable HUD for rally drivers.",
+    icon: "/icons/rallyhud.png",
+    screenshot: "/screens/rallyhud-1.png",
+    link: "https://holdking.yapplic.com"
   },
   {
+    id: "like-this",
     title: "Like This",
-    description: "Comparte y descubre recomendaciones fácilmente.",
-    link: "/apps/like-this"
+    description: "Share and discover recommendations effortlessly.",
+    icon: "/icons/likethis.svg",
+    screenshot: "/screens/likethis-1.png",
+    link: "https://someonelikethis.yapplic.com"
   },
   {
+    id: "pointerpointer",
     title: "PointerPointer",
-    description: "Juego de precisión y reflejos.",
-    link: "/apps/pointerpointer"
+    description: "A fast-paced precision and reflex game.",
+    icon: "/icons/pointerpointer.png",
+    screenshot: "/screens/pointerpointer-1.png",
+    link: "https://pointerpointer.yapplic.com"
   },
   {
+    id: "hold-king",
     title: "Hold King",
-    description: "¿Cuánto tiempo puedes aguantar el botón?",
-    link: "/apps/hold-king"
+    description: "How long can you hold the button?",
+    icon: "/icons/holdking.png",
+    screenshot: "/screens/holdking-1.png",
+    link: "hold-king.astro"
   },
   {
+    id: "sad-trombone",
     title: "Sad Trombone",
-    description: "El clásico sonido de fail, siempre a mano.",
-    link: "/apps/sad-trombone"
+    description: "The classic fail sound effect, always ready.",
+    icon: "/icons/sadtrombone.png",
+    screenshot: "/screens/sadtrombone-1.png",
+    link: "/https://landing.flycricket.io/sad-trombone/faff095133bc462691b5ba106c84ce7b/"
   }
 ];
 ---
 
-<BaseLayout title="Yapplic">
+<BaseLayout title="Yapplic - Portfolio">
 
-  <section>
-    <h2>Mis Apps</h2>
-
-    <div class="apps-grid">
-      {apps.map(app => (
-        <AppCard {...app} />
-      ))}
-    </div>
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <h1 class="slide-up">Yapplic</h1>
+    <p class="slide-up delay-1">
+      Mobile app developer crafting simple, fast and delightful experiences.
+    </p>
   </section>
+
+  <!-- APPS FULL SECTIONS -->
+  {apps.map((app, index) => (
+    <section id={app.id} class={`app-section reveal ${index % 2 === 0 ? "left" : "right"}`}>
+      <div class="app-text">
+        <img src={app.icon} alt={app.title} class="app-icon" />
+        <h2>{app.title}</h2>
+        <p>{app.description}</p>
+        <a href={app.link} class="cta-button" target="_blank">Learn more</a>
+      </div>
+
+      <div class="app-mockup">
+        <PhoneMockup image={app.screenshot} />
+      </div>
+    </section>
+  ))}
 
 </BaseLayout>
