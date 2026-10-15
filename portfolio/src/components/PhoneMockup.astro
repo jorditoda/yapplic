@@ -1,9 +1,18 @@
 ---
-const { image } = Astro.props;
+import { Image } from "astro:assets";
+
+const { image, alt = "App screenshot", width } = Astro.props;
 ---
 
 <div class="phone">
-  <img src={image} alt="App screenshot" />
+  <Image
+    src={image}
+    alt={alt}
+    width={width}
+    format="webp"
+    loading="lazy"
+    decoding="async"
+  />
 </div>
 
 <style>
@@ -19,6 +28,7 @@ const { image } = Astro.props;
 
 .phone img {
   width: 100%;
+  height: auto;
   border-radius: 22px;
 }
 </style>

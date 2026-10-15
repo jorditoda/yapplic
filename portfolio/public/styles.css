@@ -22,7 +22,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --bg: #0d0d0d;
     --text: #f2f2f2;
     --muted: #aaaaaa;
@@ -59,27 +59,6 @@ main {
 
 h2 {
   margin-bottom: 1rem;
-}
-
-/* -------------------------------------------------
-   HEADER + SHRINK+
-------------------------------------------------- */
-.header {
-  transition: padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
-  padding: 1.2rem 2rem;
-  backdrop-filter: blur(12px);
-}
-
-.header.shrink {
-  padding: 0.4rem 2rem;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(20px);
-}
-
-@media (prefers-color-scheme: dark) {
-  .header.shrink {
-    background: rgba(0,0,0,0.5);
-  }
 }
 
 /* -------------------------------------------------
@@ -178,14 +157,6 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-/* Parallax target (solo mockup, sin romper animaciones) */
-.parallax-target {
-  --parallax-offset: 0px;
-  transform: translateY(var(--parallax-offset));
-  transition: transform 0.35s ease-out;
-  will-change: transform;
-}
-
 /* CTA */
 .cta-button {
   display: inline-block;
@@ -201,6 +172,25 @@ h2 {
 .cta-button:hover {
   transform: translateY(-3px);
   background: #005fcc;
+}
+
+/* Dark mode: dark text on the lighter accent keeps contrast readable */
+:root.dark .cta-button {
+  color: #0d0d0d;
+}
+
+:root.dark .cta-button:hover {
+  background: #6db8ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .cta-button {
+    color: #0d0d0d;
+  }
+
+  :root:not(.light) .cta-button:hover {
+    background: #6db8ff;
+  }
 }
 
 /* -------------------------------------------------
@@ -253,40 +243,8 @@ h2 {
   transform: translateY(-3px);
 }
 
-/* -------------------------------------------------
-   FOOTER
-------------------------------------------------- */
-.footer {
-  text-align: center;
-  padding: 3rem 0;
-  margin-top: 4rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(0,0,0,0.05);
-}
-
-@media (prefers-color-scheme: dark) {
-  .footer {
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-}
-
-/* -------------------------------------------------
-   THEME TOGGLE
-------------------------------------------------- */
-.theme-toggle {
-  margin-left: 1.5rem;
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: var(--text);
-  transition: opacity 0.2s ease;
-}
-
-.theme-toggle:hover {
-  opacity: 0.6;
-}
+/* NOTE: header, footer and theme-toggle styles live scoped in their
+   components (Header.astro / Footer.astro) to avoid duplicated rules. */
 
 /* -------------------------------------------------
    RESPONSIVE
@@ -309,7 +267,7 @@ h2 {
   }
 }
 @media (prefers-color-scheme: dark) {
-  .app-section {
+  :root:not(.light) .app-section {
     background: rgba(255, 255, 255, 0.05) !important;
   }
 }

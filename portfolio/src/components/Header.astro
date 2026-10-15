@@ -32,7 +32,7 @@
     backdrop-filter: blur(20px);
   }
 
-  /* Dark mode */
+  /* Dark mode (class applied by JS) */
   :root.dark .header {
     background: rgba(0,0,0,0.4);
     border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -40,6 +40,18 @@
 
   :root.dark .header.shrink {
     background: rgba(0,0,0,0.55);
+  }
+
+  /* OS dark mode without a theme class (e.g. JavaScript disabled) */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .header {
+      background: rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    :root:not(.light) .header.shrink {
+      background: rgba(0,0,0,0.55);
+    }
   }
 
   .logo {

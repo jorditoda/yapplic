@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yapplic.com/sitemap-index.xml
