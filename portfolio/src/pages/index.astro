@@ -4,7 +4,7 @@ import PhoneMockup from "../components/PhoneMockup.astro";
 import { Image } from "astro:assets";
 
 import rallyHudIcon from "../assets/icons/rallyhud.png";
-import likeThisIcon from "../assets/icons/likethis.svg";
+import likeThisIcon from "../assets/icons/likethis.png";
 import pointerPointerIcon from "../assets/icons/pointerpointer.png";
 import holdKingIcon from "../assets/icons/holdking.png";
 import sadTromboneIcon from "../assets/icons/sadtrombone.png";
@@ -22,7 +22,6 @@ const apps = [
     description: "A clean and readable HUD for rally drivers.",
     icon: rallyHudIcon,
     screenshot: rallyHudScreen,
-    shotWidth: 720,
     link: "https://rallyhud.yapplic.com",
     color: "#E8F0FF"
   },
@@ -32,7 +31,6 @@ const apps = [
     description: "Share and discover recommendations effortlessly.",
     icon: likeThisIcon,
     screenshot: likeThisScreen,
-    shotWidth: 720,
     link: "https://someonelikethis.yapplic.com",
     color: "#FFF3E8"
   },
@@ -42,7 +40,6 @@ const apps = [
     description: "A fast-paced precision and reflex game.",
     icon: pointerPointerIcon,
     screenshot: pointerPointerScreen,
-    shotWidth: 720,
     link: "https://pointerpointer.yapplic.com",
     color: "#E8FFF1"
   },
@@ -52,7 +49,6 @@ const apps = [
     description: "How long can you hold the button?",
     icon: holdKingIcon,
     screenshot: holdKingScreen,
-    shotWidth: 720,
     link: "https://holdking.yapplic.com",
     color: "#FFF0F6"
   },
@@ -62,7 +58,6 @@ const apps = [
     description: "The classic fail sound effect, always ready.",
     icon: sadTromboneIcon,
     screenshot: sadTromboneScreen,
-    shotWidth: 457,
     link: "https://sadtrombone.yapplic.com",
     color: "#F3F3F3"
   }
@@ -84,7 +79,7 @@ const apps = [
     <section
       id={app.id}
       class={`app-section reveal ${index % 2 === 0 ? "left" : "right"}`}
-      style={`background:${app.color};`}
+      style={`--app-bg:${app.color};`}
     >
       <div class="app-text">
         <Image
@@ -98,7 +93,7 @@ const apps = [
         <h2>{app.title}</h2>
         <p>{app.description}</p>
         <a href={app.link} class="cta-button" target="_blank" rel="noopener">
-          Learn more about {app.title}
+          Learn more about {app.title}<span class="sr-only"> (opens in a new tab)</span>
         </a>
       </div>
 
@@ -106,7 +101,6 @@ const apps = [
         <PhoneMockup
           image={app.screenshot}
           alt={`${app.title} app screenshot`}
-          width={app.shotWidth}
         />
       </div>
     </section>

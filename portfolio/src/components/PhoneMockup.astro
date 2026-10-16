@@ -1,14 +1,20 @@
 ---
 import { Image } from "astro:assets";
 
-const { image, alt = "App screenshot", width } = Astro.props;
+const { image, alt = "App screenshot" } = Astro.props;
+
+// The frame is a fixed 260px wide with 12px of padding on each side, so the
+// screenshot always renders at 236 CSS pixels. Offering 1x/2x/3x candidates
+// keeps retina sharp while letting small screens fetch a much smaller file.
+const widths = [236, 472, 708];
 ---
 
 <div class="phone">
   <Image
     src={image}
     alt={alt}
-    width={width}
+    widths={widths}
+    sizes="236px"
     format="webp"
     loading="lazy"
     decoding="async"

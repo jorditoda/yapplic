@@ -8,7 +8,12 @@
   --accent: #007aff;
   --accent-light: #e5f0ff;
   --radius: 12px;
-  --font: 'Inter', sans-serif;
+  /* Inter was declared here but never loaded (no @font-face, no font request),
+     so the site has always rendered in the system fallback. Declare that
+     honestly — it costs zero bytes and no third-party round trip. To use the
+     real Inter, self-host the woff2 files and add an @font-face block. */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 
   /* Apple-style spacing scale */
   --space-1: 0.25rem;
@@ -59,6 +64,19 @@ main {
 
 h2 {
   margin-bottom: 1rem;
+}
+
+/* Visible to screen readers, hidden on screen. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* -------------------------------------------------
@@ -125,6 +143,8 @@ h2 {
 /* -------------------------------------------------
    SECCIONES DE APPS
 ------------------------------------------------- */
+/* Each app sets its own brand colour through the --app-bg custom property, so
+   the dark-mode rules below can override it without !important. */
 .app-section {
   display: flex;
   align-items: center;
@@ -133,6 +153,7 @@ h2 {
   margin: var(--space-8) 0;
   padding: var(--space-7) var(--space-5);
   border-radius: 24px;
+  background: var(--app-bg);
 }
 
 .app-section.left .app-text { order: 1; }
@@ -268,10 +289,30 @@ h2 {
 }
 @media (prefers-color-scheme: dark) {
   :root:not(.light) .app-section {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
 :root.dark .app-section {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* -------------------------------------------------
+   REDUCED MOTION
+------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reveal content immediately instead of animating it into place. */
+  .fade-in,
+  .slide-up,
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

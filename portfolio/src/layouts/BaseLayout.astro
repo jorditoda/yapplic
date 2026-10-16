@@ -9,6 +9,8 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL("/og.png", Astro.site);
+const socialImageWebp = new URL("/og.webp", Astro.site);
+const socialImageJpg = new URL("/og.jpg", Astro.site);
 ---
 <html lang="en">
   <head>
@@ -20,6 +22,12 @@ const socialImage = new URL("/og.png", Astro.site);
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicon -->
+    <!-- Keep /favicon.ico in place: browsers and clients that probe the default
+         path directly would otherwise 404 or fall back to a stale cached icon.
+         The SVG is preferred where supported because it adapts to the colour
+         scheme; the ICO/PNG stay as static fallbacks. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
@@ -33,12 +41,19 @@ const socialImage = new URL("/og.png", Astro.site);
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Yapplic — Simple, fast and delightful mobile apps" />
+    <!-- Lighter variants for consumers that support them, kept behind the PNG above -->
+    <meta property="og:image" content={socialImageWebp} />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image" content={socialImageJpg} />
+    <meta property="og:image:type" content="image/jpeg" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image" content={socialImageWebp} />
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="630" />
 
     <link rel="stylesheet" href="/styles.css" />
 
@@ -95,10 +110,17 @@ const socialImage = new URL("/og.png", Astro.site);
       root.classList.toggle("dark", theme === "dark");
       root.classList.toggle("light", theme === "light");
       root.style.colorScheme = theme;
+      const btn = document.getElementById("theme-toggle");
+      if (btn) btn.setAttribute("aria-pressed", String(theme === "dark"));
     };
 
     const toggle = document.getElementById("theme-toggle");
     if (toggle) {
+      // Keep the accessible state in sync with the theme already applied in <head>
+      toggle.setAttribute(
+        "aria-pressed",
+        String(document.documentElement.classList.contains("dark"))
+      );
       toggle.addEventListener("click", () => {
         const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
         setTheme(next);
