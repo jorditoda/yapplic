@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { defaultLocale, ui, useTranslations, type Locale } from "../i18n";
+
+const { lang = defaultLocale } = Astro.props as { lang?: Locale };
+const t = useTranslations(lang);
+const aboutItems = ui[lang]["about.what.items"];
+const technologies = ["Swift", "Kotlin", "Flutter", "Firebase", "Astro", "TypeScript"];
+---
+
+<BaseLayout
+  title={t("about.title")}
+  description={t("about.description")}
+  lang={lang}
+>
+
+  <!-- HERO -->
+  <section class="about-hero fade-in">
+    <h1 class="slide-up">{t("about.heading")}</h1>
+    <p class="slide-up delay-1">
+      {t("about.lead")}
+    </p>
+  </section>
+
+  <!-- WHO I AM -->
+  <section class="about-section reveal apple-anim">
+    <h2>{t("about.who.title")}</h2>
+    <p>{t("about.who.body")}</p>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section class="about-section reveal apple-anim">
+    <h2>{t("about.what.title")}</h2>
+    <ul class="about-list">
+      {aboutItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="about-section reveal apple-anim">
+    <h2>{t("about.how.title")}</h2>
+    <p>{t("about.how.body")}</p>
+  </section>
+
+  <!-- TECHNOLOGIES -->
+  <section class="about-section reveal apple-anim">
+    <h2>{t("about.tech.title")}</h2>
+    <div class="tech-grid">
+      {technologies.map((tech) => <span>{tech}</span>)}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="about-section reveal apple-anim">
+    <h2>{t("about.cta.title")}</h2>
+    <a href={lang === "es" ? "/es/" : "/"} class="cta-button">{t("about.cta.button")}</a>
+  </section>
+
+</BaseLayout>

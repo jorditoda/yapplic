@@ -1,9 +1,37 @@
+---
+import {
+  defaultLocale,
+  localeNames,
+  localeSwitchLabels,
+  useTranslations,
+  type Locale,
+} from "../i18n";
+
+const { lang = defaultLocale } = Astro.props as { lang?: Locale };
+const t = useTranslations(lang);
+
+// Current pathname, normalised without the /es prefix
+const currentPath = Astro.url.pathname;
+const basePath = currentPath.startsWith("/es")
+  ? currentPath.slice(3) || "/"
+  : currentPath;
+
+// Point the switcher at the same page in the other language
+const switchHref =
+  lang === "en"
+    ? basePath === "/"
+      ? "/es/"
+      : `/es${basePath}`
+    : basePath;
+const switchLang: Locale = lang === "en" ? "es" : "en";
+---
+
 <header class="header" id="site-header">
-  <a href="/" class="logo">Yapplic</a>
+  <a href={lang === "es" ? "/es/" : "/"} class="logo">Yapplic</a>
 
   <nav class="nav">
-    <a href="/">Home</a>
-    <a href="/about">About</a>
+    <a href={lang === "es" ? "/es/" : "/"}>{t("nav.home")}</a>
+    <a href={lang === "es" ? "/es/about" : "/about"}>{t("nav.about")}</a>
     <button
       id="theme-toggle"
       class="theme-toggle"
@@ -11,6 +39,12 @@
       aria-label="Switch colour theme"
       aria-pressed="false"
     >🌓</button>
+    <a
+      href={switchHref}
+      class="lang-switch"
+      lang={switchLang}
+      aria-label={localeSwitchLabels[switchLang]}
+    >{localeNames[switchLang]}</a>
   </nav>
 </header>
 
@@ -93,5 +127,34 @@
   .theme-toggle:hover {
     opacity: 0.6;
     transform: scale(1.1);
+  }
+
+  /* Language switcher */
+  .lang-switch {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 999px;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .lang-switch:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  :root.dark .lang-switch {
+    border-color: rgba(255,255,255,0.25);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .lang-switch {
+      border-color: rgba(255,255,255,0.25);
+    }
   }
 </style>

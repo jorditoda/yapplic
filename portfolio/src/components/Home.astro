@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PhoneMockup from "./PhoneMockup.astro";
+import { Image } from "astro:assets";
+import { defaultLocale, useTranslations, type Locale } from "../i18n";
+
+import rallyHudIcon from "../assets/icons/rallyhud.png";
+import likeThisIcon from "../assets/icons/likethis.png";
+import pointerPointerIcon from "../assets/icons/pointerpointer.png";
+import holdKingIcon from "../assets/icons/holdking.png";
+import sadTromboneIcon from "../assets/icons/sadtrombone.png";
+
+import rallyHudScreen from "../assets/screens/rallyhud-1.png";
+import likeThisScreen from "../assets/screens/likethis-1.png";
+import pointerPointerScreen from "../assets/screens/pointerpointer-1.png";
+import holdKingScreen from "../assets/screens/holdking-1.png";
+import sadTromboneScreen from "../assets/screens/sadtrombone-1.png";
+
+const { lang = defaultLocale } = Astro.props as { lang?: Locale };
+const t = useTranslations(lang);
+
+const apps = [
+  {
+    id: "rally-hud",
+    title: "Rally HUD",
+    category: "SportsApplication",
+    description: {
+      en: "A clean and readable HUD for rally drivers.",
+      es: "Un HUD limpio y legible para pilotos de rally.",
+    },
+    icon: rallyHudIcon,
+    screenshot: rallyHudScreen,
+    link: "https://rallyhud.yapplic.com",
+    color: "#E8F0FF"
+  },
+  {
+    id: "like-this",
+    title: "Like This",
+    category: "SocialNetworkingApplication",
+    description: {
+      en: "Share and discover recommendations effortlessly.",
+      es: "Comparte y descubre recomendaciones sin esfuerzo.",
+    },
+    icon: likeThisIcon,
+    screenshot: likeThisScreen,
+    link: "https://someonelikethis.yapplic.com",
+    color: "#FFF3E8"
+  },
+  {
+    id: "pointerpointer",
+    title: "PointerPointer",
+    category: "GameApplication",
+    description: {
+      en: "A fast-paced precision and reflex game.",
+      es: "Un juego de precisión y reflejos de ritmo rápido.",
+    },
+    icon: pointerPointerIcon,
+    screenshot: pointerPointerScreen,
+    link: "https://pointerpointer.yapplic.com",
+    color: "#E8FFF1"
+  },
+  {
+    id: "hold-king",
+    title: "Hold King",
+    category: "GameApplication",
+    description: {
+      en: "How long can you hold the button?",
+      es: "¿Cuánto tiempo puedes mantener el botón pulsado?",
+    },
+    icon: holdKingIcon,
+    screenshot: holdKingScreen,
+    link: "https://holdking.yapplic.com",
+    color: "#FFF0F6"
+  },
+  {
+    id: "sad-trombone",
+    title: "Sad Trombone",
+    category: "EntertainmentApplication",
+    description: {
+      en: "The classic fail sound effect, always ready.",
+      es: "El clásico sonido de fallo, siempre listo.",
+    },
+    icon: sadTromboneIcon,
+    screenshot: sadTromboneScreen,
+    link: "https://sadtrombone.yapplic.com",
+    color: "#F3F3F3"
+  }
+] as const;
+
+// Structured data: one SoftwareApplication per app, in the page's language
+const softwareItemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Yapplic apps",
+  itemListElement: apps.map((app, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "SoftwareApplication",
+      name: app.title,
+      description: app.description[lang],
+      applicationCategory: app.category,
+      url: app.link,
+      image: new URL(app.icon.src, Astro.site).href,
+      inLanguage: lang,
+      author: { "@id": new URL("/#person", Astro.site).href },
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={t("meta.title")}
+  description={t("meta.description")}
+  lang={lang}
+>
+
+  <script type="application/ld+json" set:html={JSON.stringify(softwareItemList)} />
+
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <h1 class="slide-up">Yapplic</h1>
+    <p class="slide-up delay-1">
+      {t("hero.tagline")}
+    </p>
+  </section>
+
+  <!-- APPS FULL SECTIONS -->
+  {apps.map((app, index) => (
+    <section
+      id={app.id}
+      class={`app-section reveal ${index % 2 === 0 ? "left" : "right"}`}
+      style={`--app-bg:${app.color};`}
+    >
+      <div class="app-text">
+        <Image
+          src={app.icon}
+          alt={app.title}
+          class="app-icon"
+          width={128}
+          format="webp"
+          loading="lazy"
+        />
+        <h2>{app.title}</h2>
+        <p>{app.description[lang]}</p>
+        <a href={app.link} class="cta-button" target="_blank" rel="noopener">
+          {t("app.cta").replace("{title}", app.title)}<span class="sr-only">{t("link.newTab")}</span>
+        </a>
+      </div>
+
+      <div class="app-mockup">
+        <PhoneMockup
+          image={app.screenshot}
+          alt={`${app.title} app screenshot`}
+        />
+      </div>
+    </section>
+  ))}
+
+</BaseLayout>

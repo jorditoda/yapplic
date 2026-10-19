@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { useTranslations } from "../i18n";
+
+const t = useTranslations("en");
+---
+
+<BaseLayout
+  title={t("notFound.title")}
+  description={t("notFound.description")}
+  lang="en"
+  noindex
+>
+
+  <section class="about-hero fade-in">
+    <h1 class="slide-up">{t("notFound.heading")}</h1>
+    <p class="slide-up delay-1">{t("notFound.body")}</p>
+    <p class="not-found-alt slide-up delay-2">{t("notFound.bodyAlt")}</p>
+    <a href="/" class="cta-button slide-up delay-2">{t("notFound.cta")}</a>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .not-found-alt {
+    opacity: 0.6;
+    font-size: 1rem;
+    margin-top: -0.5rem;
+  }
+
+  .about-hero .cta-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
+</style>
