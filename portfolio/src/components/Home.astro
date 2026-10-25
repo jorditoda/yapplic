@@ -23,6 +23,19 @@ const t = useTranslations(lang);
 
 const apps = [
   {
+    id: "dosi",
+    title: "Dosi",
+    category: "EducationalApplication",
+    description: {
+      en: "A daily dose to understand people better.",
+      es: "Una dosis diaria para entender mejor a la gente.",
+    },
+    icon: dosiIcon,
+    screenshot: dosiScreen,
+    link: "https://dosi.yapplic.com",
+    color: "#FFE6D5"
+  },
+  {
     id: "rally-hud",
     title: "Rally HUD",
     category: "SportsApplication",
@@ -86,19 +99,6 @@ const apps = [
     screenshot: sadTromboneScreen,
     link: "https://sadtrombone.yapplic.com",
     color: "#F3F3F3"
-  },
-  {
-    id: "dosi",
-    title: "Dosi",
-    category: "EducationalApplication",
-    description: {
-      en: "A daily dose to understand people better.",
-      es: "Una dosis diaria para entender mejor a la gente.",
-    },
-    icon: dosiIcon,
-    screenshot: dosiScreen,
-    link: "https://dosi.yapplic.com",
-    color: "#FFE6D5"
   }
 ] as const;
 
