@@ -1,8 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { defaultLocale, ui, useTranslations, type Locale } from "../i18n";
+import { defaultLocale, localePath, ui, useTranslations, type Locale } from "../i18n";
 
-const { lang = defaultLocale } = Astro.props as { lang?: Locale };
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = defaultLocale } = Astro.props;
 const t = useTranslations(lang);
 const aboutItems = ui[lang]["about.what.items"];
 const technologies = ["Swift", "Kotlin", "Flutter", "Firebase", "Astro", "TypeScript"];
@@ -53,7 +57,7 @@ const technologies = ["Swift", "Kotlin", "Flutter", "Firebase", "Astro", "TypeSc
   <!-- CTA -->
   <section class="about-section reveal apple-anim">
     <h2>{t("about.cta.title")}</h2>
-    <a href={lang === "es" ? "/es/" : "/"} class="cta-button">{t("about.cta.button")}</a>
+    <a href={localePath(lang)} class="cta-button">{t("about.cta.button")}</a>
   </section>
 
 </BaseLayout>

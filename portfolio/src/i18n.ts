@@ -22,7 +22,12 @@ const en = {
     "Yapplic is the portfolio of Jordi Toda — simple, fast and delightful mobile apps: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone and Dosi.",
   "nav.home": "Home",
   "nav.about": "About",
+  "theme.toggle": "Switch colour theme",
   "link.newTab": " (opens in a new tab)",
+  "meta.ogImageAlt": "Yapplic — Simple, fast and delightful mobile apps",
+  "meta.jobTitle": "Mobile app developer",
+  "meta.appsList": "Yapplic apps",
+  "app.screenshotAlt": "{title} app screenshot",
   "hero.tagline": "Mobile app developer crafting simple, fast and delightful experiences.",
   "app.cta": "Learn more about {title}",
   "footer.built": "Built by",
@@ -66,7 +71,12 @@ const es: Dictionary = {
     "Yapplic es el portfolio de Jordi Toda — apps móviles simples, rápidas y encantadoras: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone y Dosi.",
   "nav.home": "Inicio",
   "nav.about": "Sobre mí",
+  "theme.toggle": "Cambiar el tema de color",
   "link.newTab": " (se abre en una pestaña nueva)",
+  "meta.ogImageAlt": "Yapplic — Apps móviles simples, rápidas y encantadoras",
+  "meta.jobTitle": "Desarrollador de apps móviles",
+  "meta.appsList": "Apps de Yapplic",
+  "app.screenshotAlt": "Captura de pantalla de {title}",
   "hero.tagline": "Desarrollador de apps móviles creando experiencias simples, rápidas y encantadoras.",
   "app.cta": "Más sobre {title}",
   "footer.built": "Hecho por",
@@ -97,8 +107,8 @@ const es: Dictionary = {
   "notFound.title": "Página no encontrada — Yapplic",
   "notFound.description": "La página que buscas no existe.",
   "notFound.heading": "404 — Página no encontrada",
-  "notFound.body": "The page you are looking for does not exist.",
-  "notFound.bodyAlt": "La página que buscas no existe.",
+  "notFound.body": "La página que buscas no existe.",
+  "notFound.bodyAlt": "The page you are looking for does not exist.",
   "notFound.cta": "Volver al portfolio",
 };
 
@@ -112,4 +122,20 @@ type StringKeyOf<T> = {
 /** Convenience helper: `const t = useTranslations(lang)` then `t("nav.home")`. */
 export function useTranslations(lang: Locale) {
   return (key: StringKeyOf<Dictionary>): string => ui[lang][key];
+}
+
+/** Prefix a site-relative path with the locale (English has no prefix). */
+export function localePath(lang: Locale, path = "/"): string {
+  if (lang === defaultLocale) return path;
+  return path === "/" ? `/${lang}/` : `/${lang}${path}`;
+}
+
+/** Remove a leading locale segment (`/es/about` -> `/about`, `/es` -> `/`). */
+export function stripLocale(pathname: string): string {
+  for (const locale of locales) {
+    if (locale === defaultLocale) continue;
+    if (pathname === `/${locale}`) return "/";
+    if (pathname.startsWith(`/${locale}/`)) return pathname.slice(locale.length + 1);
+  }
+  return pathname;
 }

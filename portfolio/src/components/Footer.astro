@@ -1,19 +1,23 @@
 ---
-import { defaultLocale, useTranslations, type Locale } from "../i18n";
+import { defaultLocale, localePath, useTranslations, type Locale } from "../i18n";
 
-const { lang = defaultLocale } = Astro.props as { lang?: Locale };
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = defaultLocale } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <nav class="footer-nav">
-    <a href={lang === "es" ? "/es/" : "/"}>{t("nav.home")}</a>
-    <a href={lang === "es" ? "/es/about" : "/about"}>{t("nav.about")}</a>
-    <a href="https://github.com/jorditoda" target="_blank" rel="noopener" class="github-link"> GitHub<span class="sr-only">{t("link.newTab")}</span></a>
-    </nav>
+    <a href={localePath(lang)}>{t("nav.home")}</a>
+    <a href={localePath(lang, "/about")}>{t("nav.about")}</a>
+    <a href="https://github.com/jorditoda" target="_blank" rel="noopener" class="github-link">GitHub<span class="sr-only">{t("link.newTab")}</span></a>
+  </nav>
 
-  <script  data-name="bmc-button" data-slug="stormfkrs" data-color="#FFDD00" data-emoji="🍺" data-font="Cookie" data-text={t("footer.donate")} data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"></script>
+  <script is:inline defer data-name="bmc-button" data-slug="stormfkrs" data-color="#FFDD00" data-emoji="🍺" data-font="Cookie" data-text={t("footer.donate")} data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"></script>
 
   <p>© {year} Yapplic — {t("footer.built")} Jordi Toda — {t("footer.made")}</p>
 </footer>

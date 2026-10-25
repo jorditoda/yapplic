@@ -1,19 +1,17 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { defaultLocale, useTranslations, type Locale } from "../i18n";
+import "../styles/styles.css";
+import { defaultLocale, localePath, stripLocale, useTranslations, type Locale } from "../i18n";
 
-const {
-  title,
-  description,
-  lang = defaultLocale,
-  noindex = false,
-} = Astro.props as {
+interface Props {
   title?: string;
   description?: string;
   lang?: Locale;
   noindex?: boolean;
-};
+}
+
+const { title, description, lang = defaultLocale, noindex = false } = Astro.props;
 
 const t = useTranslations(lang);
 const finalTitle = title ?? t("meta.title");
@@ -26,18 +24,12 @@ const socialImageJpg = new URL("/og.jpg", Astro.site);
 
 // hreflang alternates: the Spanish version of a path lives under the /es prefix.
 // The 404 page is excluded (via `noindex`) because it has no language variants.
-const currentPath = Astro.url.pathname;
-const basePath = currentPath.startsWith("/es")
-  ? currentPath.slice(3) || "/"
-  : currentPath;
+const basePath = stripLocale(Astro.url.pathname);
 const alternates = noindex
   ? []
   : [
       { lang: "en", href: new URL(basePath, Astro.site) },
-      {
-        lang: "es",
-        href: new URL(basePath === "/" ? "/es/" : `/es${basePath}`, Astro.site),
-      },
+      { lang: "es", href: new URL(localePath("es", basePath), Astro.site) },
       { lang: "x-default", href: new URL(basePath, Astro.site) },
     ];
 
@@ -58,7 +50,7 @@ const structuredData = {
       "@type": "Person",
       "@id": new URL("/#person", Astro.site).href,
       name: "Jordi Toda",
-      jobTitle: "Mobile app developer",
+      jobTitle: t("meta.jobTitle"),
       url: new URL("/about", Astro.site).href,
       sameAs: ["https://github.com/jorditoda"],
     },
@@ -103,7 +95,7 @@ const structuredData = {
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Yapplic — Simple, fast and delightful mobile apps" />
+    <meta property="og:image:alt" content={t("meta.ogImageAlt")} />
     <!-- Lighter variants for consumers that support them, kept behind the PNG above -->
     <meta property="og:image" content={socialImageWebp} />
     <meta property="og:image:type" content="image/webp" />
@@ -119,8 +111,6 @@ const structuredData = {
     <meta name="twitter:image" content={socialImageWebp} />
     <meta name="twitter:image:width" content="1200" />
     <meta name="twitter:image:height" content="630" />
-
-    <link rel="stylesheet" href="/styles.css" />
 
     <!-- Structured data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
@@ -164,7 +154,10 @@ const structuredData = {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
         });
       },
       { threshold: 0.2 }
@@ -214,7 +207,7 @@ const structuredData = {
           header.classList.remove("shrink");
         }
       };
-      window.addEventListener("scroll", onScrollHeader);
+      window.addEventListener("scroll", onScrollHeader, { passive: true });
       onScrollHeader();
     }
   });

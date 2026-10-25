@@ -2,41 +2,37 @@
 import {
   defaultLocale,
   localeNames,
+  localePath,
   localeSwitchLabels,
+  stripLocale,
   useTranslations,
   type Locale,
 } from "../i18n";
 
-const { lang = defaultLocale } = Astro.props as { lang?: Locale };
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = defaultLocale } = Astro.props;
 const t = useTranslations(lang);
 
-// Current pathname, normalised without the /es prefix
-const currentPath = Astro.url.pathname;
-const basePath = currentPath.startsWith("/es")
-  ? currentPath.slice(3) || "/"
-  : currentPath;
-
 // Point the switcher at the same page in the other language
-const switchHref =
-  lang === "en"
-    ? basePath === "/"
-      ? "/es/"
-      : `/es${basePath}`
-    : basePath;
+const basePath = stripLocale(Astro.url.pathname);
 const switchLang: Locale = lang === "en" ? "es" : "en";
+const switchHref = localePath(switchLang, basePath);
 ---
 
 <header class="header" id="site-header">
-  <a href={lang === "es" ? "/es/" : "/"} class="logo">Yapplic</a>
+  <a href={localePath(lang)} class="logo">Yapplic</a>
 
   <nav class="nav">
-    <a href={lang === "es" ? "/es/" : "/"}>{t("nav.home")}</a>
-    <a href={lang === "es" ? "/es/about" : "/about"}>{t("nav.about")}</a>
+    <a href={localePath(lang)}>{t("nav.home")}</a>
+    <a href={localePath(lang, "/about")}>{t("nav.about")}</a>
     <button
       id="theme-toggle"
       class="theme-toggle"
       type="button"
-      aria-label="Switch colour theme"
+      aria-label={t("theme.toggle")}
       aria-pressed="false"
     >🌓</button>
     <a
