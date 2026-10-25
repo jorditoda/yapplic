@@ -2,7 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/styles.css";
-import { defaultLocale, localePath, stripLocale, useTranslations, type Locale } from "../i18n";
+import { defaultLocale, localePath, locales, stripLocale, useTranslations, type Locale } from "../i18n";
 
 interface Props {
   title?: string;
@@ -20,16 +20,20 @@ const finalDescription = description ?? t("meta.description");
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL("/og.png", Astro.site);
 
-// hreflang alternates: the Spanish version of a path lives under the /es prefix.
+// hreflang alternates: each non-default locale lives under its own prefix (/es, /ca).
 // The 404 page is excluded (via `noindex`) because it has no language variants.
 const basePath = stripLocale(Astro.url.pathname);
 const alternates = noindex
   ? []
   : [
-      { lang: "en", href: new URL(basePath, Astro.site) },
-      { lang: "es", href: new URL(localePath("es", basePath), Astro.site) },
+      ...locales.map((locale) => ({
+        lang: locale,
+        href: new URL(localePath(locale, basePath), Astro.site),
+      })),
       { lang: "x-default", href: new URL(basePath, Astro.site) },
     ];
+
+const ogLocales: Record<Locale, string> = { en: "en_US", es: "es_ES", ca: "ca_ES" };
 
 // Structured data: WebSite + the person behind it, on every page.
 const structuredData = {
@@ -94,8 +98,10 @@ const structuredData = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={t("meta.ogImageAlt")} />
-    <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
-    <meta property="og:locale:alternate" content={lang === "es" ? "en_US" : "es_ES"} />
+    <meta property="og:locale" content={ogLocales[lang]} />
+    {locales
+      .filter((locale) => locale !== lang)
+      .map((locale) => <meta property="og:locale:alternate" content={ogLocales[locale]} />)}
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

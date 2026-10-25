@@ -21,7 +21,7 @@ npm run dev      # dev server at http://localhost:4321
 npm run build    # static output in portfolio/dist
 ```
 
-The site is static (English and Spanish, at `/` and `/es` respectively) and deploys
+The site is static (English, Spanish and Catalan, at `/`, `/es` and `/ca` respectively) and deploys
 automatically on every push to `master`.
 
 See [`portfolio/README.md`](portfolio/README.md) for details on the structure, i18n

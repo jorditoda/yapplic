@@ -1,4 +1,4 @@
-export const locales = ["en", "es"] as const;
+export const locales = ["en", "es", "ca"] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -8,12 +8,14 @@ export const defaultLocale: Locale = "en";
 export const localeNames: Record<Locale, string> = {
   en: "EN",
   es: "ES",
+  ca: "CA",
 };
 
 /** Accessible names announced when switching language. */
 export const localeSwitchLabels: Record<Locale, string> = {
   en: "View in English",
   es: "Ver en español",
+  ca: "Veure en català",
 };
 
 const en = {
@@ -112,7 +114,54 @@ const es: Dictionary = {
   "notFound.cta": "Volver al portfolio",
 };
 
-export const ui: Record<Locale, Dictionary> = { en, es };
+const ca: Dictionary = {
+  "meta.title": "Yapplic - Portfolio",
+  "meta.description":
+    "Yapplic és el portfolio de Jordi Toda — apps mòbils simples, ràpides i encantadores: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone i Dosi.",
+  "nav.home": "Inici",
+  "nav.about": "Sobre mi",
+  "theme.toggle": "Canviar el tema de color",
+  "link.newTab": " (s'obre en una pestanya nova)",
+  "meta.ogImageAlt": "Yapplic — Apps mòbils simples, ràpides i encantadores",
+  "meta.jobTitle": "Desenvolupador d'apps mòbils",
+  "meta.appsList": "Apps de Yapplic",
+  "app.screenshotAlt": "Captura de pantalla de {title}",
+  "hero.tagline": "Desenvolupador d'apps mòbils creant experiències simples, ràpides i encantadores.",
+  "app.cta": "Més sobre {title}",
+  "footer.built": "Fet per",
+  "footer.made": "Fet amb ❤️ a Riudoms",
+  "footer.donate": "Convida'm a una cervesa",
+  "about.title": "Sobre mi — Yapplic",
+  "about.description":
+    "Sobre Jordi Toda — un enginyer centrat a crear apps mòbils simples, ràpides i encantadores amb Swift, Kotlin i Flutter.",
+  "about.heading": "Sobre mi",
+  "about.lead":
+    "Sóc Jordi Toda, un enginyer centrat a crear experiències digitals simples, ràpides i encantadores.",
+  "about.who.title": "Qui sóc",
+  "about.who.body":
+    "Sóc un enginyer a qui li encanta crear apps netes, intuïtives i eficients. El meu objectiu és sempre el mateix: crear experiències que es sentin senzilles, polides i agradables d'usar.",
+  "about.what.title": "Què faig",
+  "about.what.items": [
+    "Disseny i desenvolupo apps mòbils per a iOS i Android",
+    "Creo interfícies mínimes i intuïtives",
+    "Em centro en el rendiment, la claredat i les interaccions fluides",
+    "Desenvolupo apps petites i enfocades que resolen problemes reals",
+  ],
+  "about.how.title": "Com treballo",
+  "about.how.body":
+    "Crec en la simplicitat. Prefereixo apps petites i ben fetes davant de sistemes complexos. Itero ràpid, poleixo els detalls i sempre busco una experiència fluida i encantadora.",
+  "about.tech.title": "Tecnologies",
+  "about.cta.title": "Vols veure la meva feina?",
+  "about.cta.button": "Tornar al portfolio",
+  "notFound.title": "Pàgina no trobada — Yapplic",
+  "notFound.description": "La pàgina que busques no existeix.",
+  "notFound.heading": "404 — Pàgina no trobada",
+  "notFound.body": "La pàgina que busques no existeix.",
+  "notFound.bodyAlt": "The page you are looking for does not exist.",
+  "notFound.cta": "Tornar al portfolio",
+};
+
+export const ui: Record<Locale, Dictionary> = { en, es, ca };
 
 /** Keys whose value is a plain string (excludes lists such as `about.what.items`). */
 type StringKeyOf<T> = {

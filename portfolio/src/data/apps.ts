@@ -21,6 +21,7 @@ export const apps = [
     description: {
       en: "A daily dose to understand people better.",
       es: "Una dosis diaria para entender mejor a la gente.",
+      ca: "Una dosi diària per entendre millor la gent.",
     },
     icon: dosiIcon,
     screenshot: dosiScreen,
@@ -34,6 +35,7 @@ export const apps = [
     description: {
       en: "A clean and readable HUD for rally drivers.",
       es: "Un HUD limpio y legible para pilotos de rally.",
+      ca: "Un HUD net i llegible per a pilots de ral·li.",
     },
     icon: rallyHudIcon,
     screenshot: rallyHudScreen,
@@ -47,6 +49,7 @@ export const apps = [
     description: {
       en: "Share and discover recommendations effortlessly.",
       es: "Comparte y descubre recomendaciones sin esfuerzo.",
+      ca: "Comparteix i descobreix recomanacions sense esforç.",
     },
     icon: likeThisIcon,
     screenshot: likeThisScreen,
@@ -60,6 +63,7 @@ export const apps = [
     description: {
       en: "A fast-paced precision and reflex game.",
       es: "Un juego de precisión y reflejos de ritmo rápido.",
+      ca: "Un joc de precisió i reflexos de ritme ràpid.",
     },
     icon: pointerPointerIcon,
     screenshot: pointerPointerScreen,
@@ -73,6 +77,7 @@ export const apps = [
     description: {
       en: "How long can you hold the button?",
       es: "¿Cuánto tiempo puedes mantener el botón pulsado?",
+      ca: "Quant de temps pots mantenir el botó premut?",
     },
     icon: holdKingIcon,
     screenshot: holdKingScreen,
@@ -86,6 +91,7 @@ export const apps = [
     description: {
       en: "The classic fail sound effect, always ready.",
       es: "El clásico sonido de fallo, siempre listo.",
+      ca: "El clàssic so de fallada, sempre a punt.",
     },
     icon: sadTromboneIcon,
     screenshot: sadTromboneScreen,

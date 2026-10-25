@@ -33,7 +33,7 @@ portfolio/
 │   │   ├── Header.astro  # nav + theme toggle + language switcher
 │   │   ├── Home.astro    # home page content (receives lang)
 │   │   └── PhoneMockup.astro
-│   ├── i18n.ts           # locales + translation dictionary (en / es)
+│   ├── i18n.ts           # locales + translation dictionary (en / es / ca)
 │   ├── layouts/
 │   │   └── BaseLayout.astro  # <head>, SEO, JSON-LD, theme script
 │   └── pages/
@@ -41,14 +41,15 @@ portfolio/
 │       ├── about.astro       # /about
 │       ├── 404.astro         # 404.html (noindex, bilingual)
 │       └── es/               # Spanish versions (/es, /es/about)
+│       └── ca/               # Catalan versions (/ca, /ca/about)
 └── astro.config.mjs
 ```
 
 ## Internationalisation (i18n)
 
-The site is available in **English (default)** and **Spanish**:
+The site is available in **English (default)**, **Spanish** and **Catalan**:
 
-- English lives at `/` and `/about`, Spanish at `/es/` and `/es/about/`
+- English lives at `/` and `/about`, Spanish at `/es/` and `/es/about/`, Catalan at `/ca/` and `/ca/about/`
 - The default locale is unprefixed (`prefixDefaultLocale: false` in `astro.config.mjs`)
 - All copy lives in [`src/i18n.ts`](src/i18n.ts); TypeScript enforces that every
   locale defines the same keys
@@ -64,7 +65,7 @@ The site is available in **English (default)** and **Spanish**:
 **To add a new page:**
 
 1. Create the content component in `src/components/` receiving `lang`
-2. Create thin wrappers: `src/pages/<name>.astro` (en) and `src/pages/es/<name>.astro` (es)
+2. Create thin wrappers: `src/pages/<name>.astro` (en) and `src/pages/<locale>/<name>.astro` for each other locale
 
 ## SEO
 

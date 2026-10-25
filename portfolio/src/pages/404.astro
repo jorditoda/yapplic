@@ -1,19 +1,28 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { useTranslations } from "../i18n";
+import { locales, useTranslations } from "../i18n";
 
 const t = useTranslations("en");
 
-// GitHub Pages serves this one file for every missing URL, so Spanish
-// visitors (under /es/) get their copy swapped in by the script below.
-const es = useTranslations("es");
-const spanish = {
-  title: es("notFound.title"),
-  heading: es("notFound.heading"),
-  body: es("notFound.body"),
-  alt: es("notFound.bodyAlt"),
-  cta: es("notFound.cta"),
-};
+// GitHub Pages serves this one file for every missing URL, so visitors under a
+// locale prefix (/es/, /ca/) get their copy swapped in by the script below.
+const translated = Object.fromEntries(
+  locales
+    .filter((locale) => locale !== "en")
+    .map((locale) => {
+      const tl = useTranslations(locale);
+      return [
+        locale,
+        {
+          title: tl("notFound.title"),
+          heading: tl("notFound.heading"),
+          body: tl("notFound.body"),
+          alt: tl("notFound.bodyAlt"),
+          cta: tl("notFound.cta"),
+        },
+      ];
+    })
+);
 ---
 
 <BaseLayout
@@ -23,7 +32,7 @@ const spanish = {
   noindex
 >
 
-  <section class="about-hero fade-in" id="not-found" data-es={JSON.stringify(spanish)}>
+  <section class="about-hero fade-in" id="not-found" data-translations={JSON.stringify(translated)}>
     <h1 class="slide-up">{t("notFound.heading")}</h1>
     <p class="slide-up delay-1">{t("notFound.body")}</p>
     <p class="not-found-alt slide-up delay-2">{t("notFound.bodyAlt")}</p>
@@ -33,18 +42,19 @@ const spanish = {
 </BaseLayout>
 
 <script is:inline>
-  if (location.pathname === "/es" || location.pathname.startsWith("/es/")) {
-    var root = document.getElementById("not-found");
-    var spanish = JSON.parse(root.dataset.es);
-    var q = function (sel) { return document.querySelector("#not-found " + sel); };
-    document.documentElement.lang = "es";
-    document.title = spanish.title;
-    q("h1").textContent = spanish.heading;
-    q("p").textContent = spanish.body;
-    q(".not-found-alt").textContent = spanish.alt;
+  var root = document.getElementById("not-found");
+  var locale = location.pathname.split("/")[1];
+  var copy = JSON.parse(root.dataset.translations)[locale];
+  if (copy) {
+    var q = function (sel) { return root.querySelector(sel); };
+    document.documentElement.lang = locale;
+    document.title = copy.title;
+    q("h1").textContent = copy.heading;
+    q("p").textContent = copy.body;
+    q(".not-found-alt").textContent = copy.alt;
     var cta = q(".cta-button");
-    cta.textContent = spanish.cta;
-    cta.setAttribute("href", "/es/");
+    cta.textContent = copy.cta;
+    cta.setAttribute("href", "/" + locale + "/");
   }
 </script>
 

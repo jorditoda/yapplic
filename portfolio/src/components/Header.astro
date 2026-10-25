@@ -1,6 +1,7 @@
 ---
 import {
   defaultLocale,
+  locales,
   localeNames,
   localePath,
   localeSwitchLabels,
@@ -18,10 +19,9 @@ const t = useTranslations(lang);
 const currentPath = stripLocale(Astro.url.pathname).replace(/\/$/, "") || "/";
 const current = (path: string) => (currentPath === path ? "page" : undefined);
 
-// Point the switcher at the same page in the other language
+// Same page in every other language
 const basePath = stripLocale(Astro.url.pathname);
-const switchLang: Locale = lang === "en" ? "es" : "en";
-const switchHref = localePath(switchLang, basePath);
+const switchLocales = locales.filter((locale) => locale !== lang);
 ---
 
 <header class="header" id="site-header">
@@ -37,12 +37,14 @@ const switchHref = localePath(switchLang, basePath);
       aria-label={t("theme.toggle")}
       aria-pressed="false"
     >🌓</button>
-    <a
-      href={switchHref}
-      class="lang-switch"
-      lang={switchLang}
-      aria-label={localeSwitchLabels[switchLang]}
-    >{localeNames[switchLang]}</a>
+    {switchLocales.map((locale) => (
+      <a
+        href={localePath(locale, basePath)}
+        class="lang-switch"
+        lang={locale}
+        aria-label={localeSwitchLabels[locale]}
+      >{localeNames[locale]}</a>
+    ))}
   </nav>
 </header>
 
@@ -134,7 +136,7 @@ const switchHref = localePath(switchLang, basePath);
     }
 
     .nav {
-      gap: 0.9rem;
+      gap: 0.6rem;
       font-size: 0.9rem;
     }
   }
