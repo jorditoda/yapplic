@@ -2,7 +2,7 @@
 
 Source code of [yapplic.com](https://yapplic.com) — the portfolio of Jordi Toda, showcasing
 the mobile apps built under the Yapplic name: **Rally HUD**, **Like This**,
-**PointerPointer**, **Hold King** and **Sad Trombone**.
+**PointerPointer**, **Hold King**, **Sad Trombone** and **Dosi**.
 
 ## Stack
 

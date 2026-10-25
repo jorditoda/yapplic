@@ -9,12 +9,14 @@ import likeThisIcon from "../assets/icons/likethis.png";
 import pointerPointerIcon from "../assets/icons/pointerpointer.png";
 import holdKingIcon from "../assets/icons/holdking.png";
 import sadTromboneIcon from "../assets/icons/sadtrombone.png";
+import dosiIcon from "../assets/icons/dosi.png";
 
 import rallyHudScreen from "../assets/screens/rallyhud-1.png";
 import likeThisScreen from "../assets/screens/likethis-1.png";
 import pointerPointerScreen from "../assets/screens/pointerpointer-1.png";
 import holdKingScreen from "../assets/screens/holdking-1.png";
 import sadTromboneScreen from "../assets/screens/sadtrombone-1.png";
+import dosiScreen from "../assets/screens/dosi-1.png";
 
 const { lang = defaultLocale } = Astro.props as { lang?: Locale };
 const t = useTranslations(lang);
@@ -84,6 +86,19 @@ const apps = [
     screenshot: sadTromboneScreen,
     link: "https://sadtrombone.yapplic.com",
     color: "#F3F3F3"
+  },
+  {
+    id: "dosi",
+    title: "Dosi",
+    category: "EducationalApplication",
+    description: {
+      en: "A daily dose to understand people better.",
+      es: "Una dosis diaria para entender mejor a la gente.",
+    },
+    icon: dosiIcon,
+    screenshot: dosiScreen,
+    link: "https://dosi.yapplic.com",
+    color: "#FFE6D5"
   }
 ] as const;
 

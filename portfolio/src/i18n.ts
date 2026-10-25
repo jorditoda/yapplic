@@ -19,7 +19,7 @@ export const localeSwitchLabels: Record<Locale, string> = {
 const en = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
-    "Yapplic is the portfolio of Jordi Toda — simple, fast and delightful mobile apps: Rally HUD, Like This, PointerPointer, Hold King and Sad Trombone.",
+    "Yapplic is the portfolio of Jordi Toda — simple, fast and delightful mobile apps: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone and Dosi.",
   "nav.home": "Home",
   "nav.about": "About",
   "link.newTab": " (opens in a new tab)",
@@ -63,7 +63,7 @@ type Dictionary = typeof en;
 const es: Dictionary = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
-    "Yapplic es el portfolio de Jordi Toda — apps móviles simples, rápidas y encantadoras: Rally HUD, Like This, PointerPointer, Hold King y Sad Trombone.",
+    "Yapplic es el portfolio de Jordi Toda — apps móviles simples, rápidas y encantadoras: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone y Dosi.",
   "nav.home": "Inicio",
   "nav.about": "Sobre mí",
   "link.newTab": " (se abre en una pestaña nueva)",

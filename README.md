@@ -2,7 +2,7 @@
 
 Portfolio of **[yapplic.com](https://yapplic.com)** — the mobile apps built by
 [Jordi Toda](https://github.com/jorditoda) under the Yapplic name:
-**Rally HUD**, **Like This**, **PointerPointer**, **Hold King** and **Sad Trombone**.
+**Rally HUD**, **Like This**, **PointerPointer**, **Hold King**, **Sad Trombone** and **Dosi**.
 
 ## Repository layout
 
