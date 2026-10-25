@@ -56,38 +56,16 @@ const switchHref = localePath(switchLang, basePath);
     align-items: center;
     z-index: 100;
     backdrop-filter: blur(12px);
-    background: rgba(255,255,255,0.6);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
     transition: padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
   }
 
   /* Shrink effect */
   .header.shrink {
     padding: 0.4rem 2rem;
-    background: rgba(255,255,255,0.75);
+    background: var(--header-bg-shrink);
     backdrop-filter: blur(20px);
-  }
-
-  /* Dark mode (class applied by JS) */
-  :root.dark .header {
-    background: rgba(0,0,0,0.4);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  :root.dark .header.shrink {
-    background: rgba(0,0,0,0.55);
-  }
-
-  /* OS dark mode without a theme class (e.g. JavaScript disabled) */
-  @media (prefers-color-scheme: dark) {
-    :root:not(.light) .header {
-      background: rgba(0,0,0,0.4);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    :root:not(.light) .header.shrink {
-      background: rgba(0,0,0,0.55);
-    }
   }
 
   .logo {
@@ -97,8 +75,13 @@ const switchHref = localePath(switchLang, basePath);
     font-size: 1.1rem;
   }
 
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
   .nav a {
-    margin-left: 1.5rem;
     text-decoration: none;
     color: var(--text);
     font-weight: 500;
@@ -111,9 +94,9 @@ const switchHref = localePath(switchLang, basePath);
 
   /* Theme toggle button */
   .theme-toggle {
-    margin-left: 1.5rem;
     background: none;
     border: none;
+    padding: 0;
     font-size: 1.2rem;
     cursor: pointer;
     color: var(--text);
@@ -127,30 +110,30 @@ const switchHref = localePath(switchLang, basePath);
 
   /* Language switcher */
   .lang-switch {
-    margin-left: 1.5rem;
-    text-decoration: none;
-    color: var(--text);
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     padding: 0.25rem 0.6rem;
-    border: 1px solid rgba(0,0,0,0.15);
+    border: 1px solid var(--border-strong);
     border-radius: 999px;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
   }
 
   .lang-switch:hover {
-    color: var(--accent);
     border-color: var(--accent);
   }
 
-  :root.dark .lang-switch {
-    border-color: rgba(255,255,255,0.25);
-  }
+  /* Small phones: tighter spacing so logo + nav fit on one row */
+  @media (max-width: 480px) {
+    .header,
+    .header.shrink {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
 
-  @media (prefers-color-scheme: dark) {
-    :root:not(.light) .lang-switch {
-      border-color: rgba(255,255,255,0.25);
+    .nav {
+      gap: 0.9rem;
+      font-size: 0.9rem;
     }
   }
 </style>
