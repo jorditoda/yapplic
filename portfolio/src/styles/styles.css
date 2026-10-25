@@ -326,3 +326,9 @@ h2 {
     transform: none !important;
   }
 }
+
+/* Current page in the navigation */
+:root .nav a[aria-current="page"],
+:root .footer-nav a[aria-current="page"] {
+  color: var(--accent);
+}

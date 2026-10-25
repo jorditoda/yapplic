@@ -15,6 +15,8 @@ interface Props {
 
 const { lang = defaultLocale } = Astro.props;
 const t = useTranslations(lang);
+const currentPath = stripLocale(Astro.url.pathname).replace(/\/$/, "") || "/";
+const current = (path: string) => (currentPath === path ? "page" : undefined);
 
 // Point the switcher at the same page in the other language
 const basePath = stripLocale(Astro.url.pathname);
@@ -26,8 +28,8 @@ const switchHref = localePath(switchLang, basePath);
   <a href={localePath(lang)} class="logo">Yapplic</a>
 
   <nav class="nav">
-    <a href={localePath(lang)}>{t("nav.home")}</a>
-    <a href={localePath(lang, "/about")}>{t("nav.about")}</a>
+    <a href={localePath(lang)} aria-current={current("/")}>{t("nav.home")}</a>
+    <a href={localePath(lang, "/about")} aria-current={current("/about")}>{t("nav.about")}</a>
     <button
       id="theme-toggle"
       class="theme-toggle"

@@ -1,5 +1,5 @@
 ---
-import { defaultLocale, localePath, useTranslations, type Locale } from "../i18n";
+import { defaultLocale, localePath, stripLocale, useTranslations, type Locale } from "../i18n";
 
 interface Props {
   lang?: Locale;
@@ -7,13 +7,15 @@ interface Props {
 
 const { lang = defaultLocale } = Astro.props;
 const t = useTranslations(lang);
+const currentPath = stripLocale(Astro.url.pathname).replace(/\/$/, "") || "/";
+const current = (path: string) => (currentPath === path ? "page" : undefined);
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <nav class="footer-nav">
-    <a href={localePath(lang)}>{t("nav.home")}</a>
-    <a href={localePath(lang, "/about")}>{t("nav.about")}</a>
+    <a href={localePath(lang)} aria-current={current("/")}>{t("nav.home")}</a>
+    <a href={localePath(lang, "/about")} aria-current={current("/about")}>{t("nav.about")}</a>
     <a href="https://github.com/jorditoda" target="_blank" rel="noopener" class="github-link">GitHub<span class="sr-only">{t("link.newTab")}</span></a>
   </nav>
 
