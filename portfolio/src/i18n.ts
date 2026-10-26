@@ -13,6 +13,13 @@ export const localeNames: Record<Locale, string> = {
   ca: "CA",
 };
 
+/** Language names shown in the language menu, each in its own language. */
+export const localeFullNames: Record<Locale, string> = {
+  en: "English",
+  es: "Español",
+  ca: "Català",
+};
+
 /** Accessible names announced when switching language. */
 export const localeSwitchLabels: Record<Locale, string> = {
   en: "View in English",
@@ -24,8 +31,9 @@ const en = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
     "Yapplic is the portfolio of Jordi Toda — simple, fast and delightful mobile apps: {apps}.",
-  "nav.home": "Home",
+  "nav.apps": "Apps",
   "nav.about": "About",
+  "lang.label": "Language",
   "theme.toggle": "Switch colour theme",
   "link.newTab": " (opens in a new tab)",
   "meta.ogImageAlt": "Yapplic — Simple, fast and delightful mobile apps",
@@ -38,7 +46,6 @@ const en = {
   "app.cta": "Learn more about {title} →",
   "store.appStore": "Download on the App Store",
   "store.playStore": "Get it on Google Play",
-  "footer.built": "Built by",
   "footer.made": "Made with ❤️ in Riudoms",
   "footer.donate": "Buy me a beer",
   "about.title": "About — Yapplic",
@@ -77,8 +84,9 @@ const es: Dictionary = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
     "Yapplic es el portfolio de Jordi Toda — apps móviles simples, rápidas y encantadoras: {apps}.",
-  "nav.home": "Inicio",
+  "nav.apps": "Apps",
   "nav.about": "Sobre mí",
+  "lang.label": "Idioma",
   "theme.toggle": "Cambiar el tema de color",
   "link.newTab": " (se abre en una pestaña nueva)",
   "meta.ogImageAlt": "Yapplic — Apps móviles simples, rápidas y encantadoras",
@@ -91,7 +99,6 @@ const es: Dictionary = {
   "app.cta": "Más sobre {title} →",
   "store.appStore": "Descargar en el App Store",
   "store.playStore": "Disponible en Google Play",
-  "footer.built": "Hecho por",
   "footer.made": "Hecho con ❤️ en Riudoms",
   "footer.donate": "Invítame una cerveza",
   "about.title": "Sobre mí — Yapplic",
@@ -128,8 +135,9 @@ const ca: Dictionary = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
     "Yapplic és el portfolio de Jordi Toda — apps mòbils simples, ràpides i encantadores: {apps}.",
-  "nav.home": "Inici",
+  "nav.apps": "Apps",
   "nav.about": "Sobre mi",
+  "lang.label": "Idioma",
   "theme.toggle": "Canviar el tema de color",
   "link.newTab": " (s'obre en una pestanya nova)",
   "meta.ogImageAlt": "Yapplic — Apps mòbils simples, ràpides i encantadores",
@@ -142,7 +150,6 @@ const ca: Dictionary = {
   "app.cta": "Més sobre {title} →",
   "store.appStore": "Descarrega a l'App Store",
   "store.playStore": "Disponible a Google Play",
-  "footer.built": "Fet per",
   "footer.made": "Fet amb ❤️ a Riudoms",
   "footer.donate": "Convida'm a una cervesa",
   "about.title": "Sobre mi — Yapplic",
