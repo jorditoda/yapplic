@@ -49,8 +49,6 @@
     --header-bg: rgba(28, 22, 18, 0.6);
     --header-bg-shrink: rgba(28, 22, 18, 0.75);
     --shadow: 0 10px 30px rgba(10, 6, 3, 0.4);
-    /* Replaced by per-app tints in the app-section rework. */
-    --app-surface: rgba(243, 234, 224, 0.05);
   }
 }
 
@@ -67,7 +65,6 @@
   --header-bg: rgba(28, 22, 18, 0.6);
   --header-bg-shrink: rgba(28, 22, 18, 0.75);
   --shadow: 0 10px 30px rgba(10, 6, 3, 0.4);
-  --app-surface: rgba(243, 234, 224, 0.05);
 }
 
 /* -------------------------------------------------
@@ -115,7 +112,7 @@ h2 {
 ------------------------------------------------- */
 .hero {
   text-align: center;
-  padding: 4rem 0;
+  padding: 4rem 0 2rem;
 }
 
 .hero h1 {
@@ -123,9 +120,63 @@ h2 {
   margin: 0;
 }
 
-.hero p {
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0;
+}
+
+.hero-sub {
   color: var(--muted);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  max-width: 520px;
+  margin: 0.75rem auto 0;
+}
+
+.app-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4) var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.app-grid a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 4.5rem;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.app-grid img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12.5px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.app-grid a:hover img {
+  transform: translateY(-3px);
+}
+
+.app-grid a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* -------------------------------------------------
@@ -181,10 +232,21 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
-  margin: var(--space-8) 0;
-  padding: var(--space-7) var(--space-5);
+  margin: var(--space-6) 0;
+  padding: var(--space-6) var(--space-5);
+  scroll-margin-top: 5rem;
   border-radius: var(--radius-section);
-  background: var(--app-surface, var(--app-bg));
+  background: var(--app-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .app-section {
+    background: color-mix(in srgb, var(--app-bg) 10%, var(--bg));
+  }
+}
+
+:root.dark .app-section {
+  background: color-mix(in srgb, var(--app-bg) 10%, var(--bg));
 }
 
 .app-section.left .app-text { order: 1; }
@@ -325,6 +387,24 @@ h2 {
 @media (max-width: 500px) {
   main {
     padding: 1rem;
+  }
+
+  .hero {
+    padding: 2rem 0;
+  }
+
+  .app-section {
+    margin: 2rem 0;
+  }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+  }
+
+  .app-grid a {
+    width: 100%;
   }
 
   .app-section {

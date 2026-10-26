@@ -50,12 +50,21 @@ const softwareItemList = {
   <!-- HERO -->
   <section class="hero fade-in">
     <h1 class="slide-up">Yapplic</h1>
-    <p class="slide-up delay-1">
-      {t("hero.tagline")}
-    </p>
+    <p class="hero-tagline slide-up delay-1">{t("hero.tagline")}</p>
+    <p class="hero-sub slide-up delay-1">{t("hero.sub")}</p>
+
+    <nav class="app-grid slide-up delay-2" aria-label={t("hero.appsNav")}>
+      {apps.map((app) => (
+        <a href={`#${app.id}`}>
+          <Image src={app.icon} alt="" width={112} height={112} format="webp" />
+          <span>{app.title}</span>
+        </a>
+      ))}
+    </nav>
   </section>
 
   <!-- APPS FULL SECTIONS -->
+  <section id="apps">
   {apps.map((app, index) => (
     <section
       id={app.id}
@@ -93,5 +102,6 @@ const softwareItemList = {
       </div>
     </section>
   ))}
+  </section>
 
 </BaseLayout>
