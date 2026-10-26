@@ -1,3 +1,5 @@
+import { apps } from "./data/apps";
+
 export const locales = ["en", "es", "ca"] as const;
 
 export type Locale = (typeof locales)[number];
@@ -21,7 +23,7 @@ export const localeSwitchLabels: Record<Locale, string> = {
 const en = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
-    "Yapplic is the portfolio of Jordi Toda — simple, fast and delightful mobile apps: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone and Dosi.",
+    "Yapplic is the portfolio of Jordi Toda — simple, fast and delightful mobile apps: {apps}.",
   "nav.home": "Home",
   "nav.about": "About",
   "theme.toggle": "Switch colour theme",
@@ -70,7 +72,7 @@ type Dictionary = typeof en;
 const es: Dictionary = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
-    "Yapplic es el portfolio de Jordi Toda — apps móviles simples, rápidas y encantadoras: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone y Dosi.",
+    "Yapplic es el portfolio de Jordi Toda — apps móviles simples, rápidas y encantadoras: {apps}.",
   "nav.home": "Inicio",
   "nav.about": "Sobre mí",
   "theme.toggle": "Cambiar el tema de color",
@@ -117,7 +119,7 @@ const es: Dictionary = {
 const ca: Dictionary = {
   "meta.title": "Yapplic - Portfolio",
   "meta.description":
-    "Yapplic és el portfolio de Jordi Toda — apps mòbils simples, ràpides i encantadores: Rally HUD, Like This, PointerPointer, Hold King, Sad Trombone i Dosi.",
+    "Yapplic és el portfolio de Jordi Toda — apps mòbils simples, ràpides i encantadores: {apps}.",
   "nav.home": "Inici",
   "nav.about": "Sobre mi",
   "theme.toggle": "Canviar el tema de color",
@@ -168,9 +170,18 @@ type StringKeyOf<T> = {
   [K in keyof T]: T[K] extends string ? K : never;
 }[keyof T];
 
+/** App titles joined with the locale's "and" (e.g. "A, B and C"). */
+function appNames(lang: Locale): string {
+  return new Intl.ListFormat(lang === "en" ? "en-GB" : lang, {
+    style: "long",
+    type: "conjunction",
+  }).format(apps.map((app) => app.title));
+}
+
 /** Convenience helper: `const t = useTranslations(lang)` then `t("nav.home")`. */
 export function useTranslations(lang: Locale) {
-  return (key: StringKeyOf<Dictionary>): string => ui[lang][key];
+  return (key: StringKeyOf<Dictionary>): string =>
+    ui[lang][key].replace("{apps}", () => appNames(lang));
 }
 
 /** Prefix a site-relative path with the locale (English has no prefix). */

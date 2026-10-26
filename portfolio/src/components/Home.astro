@@ -25,9 +25,9 @@ const softwareItemList = {
     item: {
       "@type": "SoftwareApplication",
       name: app.title,
-      description: app.description[lang],
+      description: `${app.tagline[lang]} ${app.details[lang]}`,
       applicationCategory: app.category,
-      url: app.link,
+      url: app.link ?? app.appStore ?? app.playStore,
       image: new URL(app.icon.src, Astro.site).href,
       inLanguage: lang,
       author: { "@id": new URL("/#person", Astro.site).href },
@@ -69,10 +69,13 @@ const softwareItemList = {
           loading="lazy"
         />
         <h2>{app.title}</h2>
-        <p>{app.description[lang]}</p>
-        <a href={app.link} class="cta-button" target="_blank" rel="noopener">
-          {t("app.cta").replace("{title}", app.title)}<span class="sr-only">{t("link.newTab")}</span>
-        </a>
+        <p>{app.tagline[lang]}</p>
+        <p>{app.details[lang]}</p>
+        {app.link && (
+          <a href={app.link} class="cta-button" target="_blank" rel="noopener">
+            {t("app.cta").replace("{title}", app.title)}<span class="sr-only">{t("link.newTab")}</span>
+          </a>
+        )}
       </div>
 
       <div class="app-mockup">
