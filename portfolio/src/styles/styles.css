@@ -199,6 +199,28 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
+.app-text p.app-platforms {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.app-link {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-link:hover {
+  text-decoration: underline;
+}
+
+.app-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* CTA */
 .cta-button {
   display: inline-block;

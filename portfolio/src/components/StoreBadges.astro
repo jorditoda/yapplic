@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import type { App } from "../data/apps";
+import { useTranslations, type Locale } from "../i18n";
+
+interface Props {
+  app: App;
+  lang: Locale;
+}
+
+const { app, lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Official badges, unmodified, one folder per language.
+const appStoreBadges = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/badges/*/app-store.svg",
+  { eager: true },
+);
+const playBadges = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/badges/*/google-play.png",
+  { eager: true },
+);
+
+const appStoreBadge = appStoreBadges[`../assets/badges/${lang}/app-store.svg`].default;
+const playBadge = playBadges[`../assets/badges/${lang}/google-play.png`].default;
+---
+
+{(app.appStore || app.playStore) && (
+  <div class="store-badges">
+    {app.appStore && (
+      <a href={app.appStore} target="_blank" rel="noopener">
+        <Image
+          src={appStoreBadge}
+          alt={t("store.appStore")}
+          height={40}
+          class="badge badge-apple"
+        />
+        <span class="sr-only">{t("link.newTab")}</span>
+      </a>
+    )}
+    {app.playStore && (
+      <a href={app.playStore} target="_blank" rel="noopener">
+        <Image
+          src={playBadge}
+          alt={t("store.playStore")}
+          height={46}
+          class="badge badge-play"
+        />
+        <span class="sr-only">{t("link.newTab")}</span>
+      </a>
+    )}
+  </div>
+)}
+
+<style>
+.store-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Google's PNG carries its own clear space, so it needs a taller box for the
+   visible badge to match the App Store badge at 40px. */
+.badge-apple { height: 40px; width: auto; }
+.badge-play { height: 46px; width: auto; }
+
+.store-badges a {
+  display: inline-flex;
+  border-radius: 8px;
+}
+
+.store-badges a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+</style>
