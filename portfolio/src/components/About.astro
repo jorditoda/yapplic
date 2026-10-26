@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import avatar from "../assets/avatar.svg";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { defaultLocale, localePath, ui, useTranslations, type Locale } from "../i18n";
 
@@ -20,6 +22,7 @@ const technologies = ["Swift", "Kotlin", "Flutter", "Firebase", "Astro", "TypeSc
 
   <!-- HERO -->
   <section class="about-hero fade-in">
+    <Image src={avatar} alt="" width={120} height={120} class="about-avatar slide-up" loading="eager" />
     <h1 class="slide-up">{t("about.heading")}</h1>
     <p class="slide-up delay-1">
       {t("about.lead")}
@@ -40,12 +43,6 @@ const technologies = ["Swift", "Kotlin", "Flutter", "Firebase", "Astro", "TypeSc
     </ul>
   </section>
 
-  <!-- HOW I WORK -->
-  <section class="about-section reveal apple-anim">
-    <h2>{t("about.how.title")}</h2>
-    <p>{t("about.how.body")}</p>
-  </section>
-
   <!-- TECHNOLOGIES -->
   <section class="about-section reveal apple-anim">
     <h2>{t("about.tech.title")}</h2>
@@ -54,10 +51,10 @@ const technologies = ["Swift", "Kotlin", "Flutter", "Firebase", "Astro", "TypeSc
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="about-section reveal apple-anim">
-    <h2>{t("about.cta.title")}</h2>
-    <a href={localePath(lang)} class="cta-button">{t("about.cta.button")}</a>
+  <!-- LINKS -->
+  <section class="about-section about-links reveal apple-anim">
+    <a href={`${localePath(lang)}#apps`} class="cta-button">{t("about.cta.apps")}</a>
+    <a href="https://www.linkedin.com/in/jordi-toda/" class="cta-button cta-secondary" target="_blank" rel="noopener">LinkedIn<span class="sr-only">{t("link.newTab")}</span></a>
   </section>
 
 </BaseLayout>

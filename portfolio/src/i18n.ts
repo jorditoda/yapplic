@@ -53,10 +53,10 @@ const en = {
     "About Jordi Toda — an engineer focused on building simple, fast and delightful mobile apps with Swift, Kotlin and Flutter.",
   "about.heading": "About Me",
   "about.lead":
-    "I'm Jordi Toda, an engineer focused on building simple, fast and delightful digital experiences.",
+    "I'm Jordi Toda, an engineer from Riudoms who builds small mobile apps in his spare time.",
   "about.who.title": "Who I am",
   "about.who.body":
-    "I’m an engineer who loves crafting clean, intuitive and efficient mobile apps. My goal is always the same: create experiences that feel effortless, polished and enjoyable to use.",
+    "I like apps that do one thing and do it well. Some are useful, like Dosi or Rally HUD; others are just for laughs, like Sad Trombone or PointerPointer.",
   "about.what.title": "What I do",
   "about.what.items": [
     "Design and build mobile apps for iOS and Android",
@@ -64,12 +64,8 @@ const en = {
     "Focus on performance, clarity and smooth interactions",
     "Develop small, focused apps that solve real problems",
   ],
-  "about.how.title": "How I work",
-  "about.how.body":
-    "I believe in simplicity. I prefer small, well‑crafted apps over complex systems. I iterate quickly, polish details, and always aim for a smooth, delightful experience.",
   "about.tech.title": "Technologies",
-  "about.cta.title": "Want to see my work?",
-  "about.cta.button": "Back to portfolio",
+  "about.cta.apps": "See the apps",
   "notFound.title": "Page not found — Yapplic",
   "notFound.description": "The page you are looking for does not exist.",
   "notFound.heading": "404 — Page not found",
@@ -106,10 +102,10 @@ const es: Dictionary = {
     "Sobre Jordi Toda — un ingeniero centrado en crear apps móviles simples, rápidas y encantadoras con Swift, Kotlin y Flutter.",
   "about.heading": "Sobre mí",
   "about.lead":
-    "Soy Jordi Toda, un ingeniero centrado en crear experiencias digitales simples, rápidas y encantadoras.",
+    "Soy Jordi Toda, un ingeniero de Riudoms que crea pequeñas apps móviles en su tiempo libre.",
   "about.who.title": "Quién soy",
   "about.who.body":
-    "Soy un ingeniero al que le encanta crear apps limpias, intuitivas y eficientes. Mi objetivo es siempre el mismo: crear experiencias que se sientan sencillas, pulidas y agradables de usar.",
+    "Me gustan las apps que hacen una sola cosa y la hacen bien. Algunas son útiles, como Dosi o Rally HUD; otras son solo para reír, como Sad Trombone o PointerPointer.",
   "about.what.title": "Qué hago",
   "about.what.items": [
     "Diseño y desarrollo apps móviles para iOS y Android",
@@ -117,12 +113,8 @@ const es: Dictionary = {
     "Me centro en el rendimiento, la claridad y las interacciones fluidas",
     "Desarrollo apps pequeñas y enfocadas que resuelven problemas reales",
   ],
-  "about.how.title": "Cómo trabajo",
-  "about.how.body":
-    "Creo en la simplicidad. Prefiero apps pequeñas y bien hechas frente a sistemas complejos. Itero rápido, pulo los detalles y siempre busco una experiencia fluida y encantadora.",
   "about.tech.title": "Tecnologías",
-  "about.cta.title": "¿Quieres ver mi trabajo?",
-  "about.cta.button": "Volver al portfolio",
+  "about.cta.apps": "Ver las apps",
   "notFound.title": "Página no encontrada — Yapplic",
   "notFound.description": "La página que buscas no existe.",
   "notFound.heading": "404 — Página no encontrada",
@@ -157,10 +149,10 @@ const ca: Dictionary = {
     "Sobre Jordi Toda — un enginyer centrat a crear apps mòbils simples, ràpides i encantadores amb Swift, Kotlin i Flutter.",
   "about.heading": "Sobre mi",
   "about.lead":
-    "Sóc Jordi Toda, un enginyer centrat a crear experiències digitals simples, ràpides i encantadores.",
+    "Sóc Jordi Toda, un enginyer de Riudoms que crea petites apps mòbils en el seu temps lliure.",
   "about.who.title": "Qui sóc",
   "about.who.body":
-    "Sóc un enginyer a qui li encanta crear apps netes, intuïtives i eficients. El meu objectiu és sempre el mateix: crear experiències que es sentin senzilles, polides i agradables d'usar.",
+    "M'agraden les apps que fan una sola cosa i la fan bé. Algunes són útils, com Dosi o Rally HUD; d'altres són només per riure, com Sad Trombone o PointerPointer.",
   "about.what.title": "Què faig",
   "about.what.items": [
     "Disseny i desenvolupo apps mòbils per a iOS i Android",
@@ -168,12 +160,8 @@ const ca: Dictionary = {
     "Em centro en el rendiment, la claredat i les interaccions fluides",
     "Desenvolupo apps petites i enfocades que resolen problemes reals",
   ],
-  "about.how.title": "Com treballo",
-  "about.how.body":
-    "Crec en la simplicitat. Prefereixo apps petites i ben fetes davant de sistemes complexos. Itero ràpid, poleixo els detalls i sempre busco una experiència fluida i encantadora.",
   "about.tech.title": "Tecnologies",
-  "about.cta.title": "Vols veure la meva feina?",
-  "about.cta.button": "Tornar al portfolio",
+  "about.cta.apps": "Veure les apps",
   "notFound.title": "Pàgina no trobada — Yapplic",
   "notFound.description": "La pàgina que busques no existeix.",
   "notFound.heading": "404 — Pàgina no trobada",
