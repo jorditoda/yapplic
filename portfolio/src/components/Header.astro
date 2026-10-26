@@ -2,6 +2,7 @@
 import {
   defaultLocale,
   locales,
+  localeFullNames,
   localeNames,
   localePath,
   localeSwitchLabels,
@@ -19,16 +20,15 @@ const t = useTranslations(lang);
 const currentPath = stripLocale(Astro.url.pathname).replace(/\/$/, "") || "/";
 const current = (path: string) => (currentPath === path ? "page" : undefined);
 
-// Same page in every other language
+// Same page in every language
 const basePath = stripLocale(Astro.url.pathname);
-const switchLocales = locales.filter((locale) => locale !== lang);
 ---
 
 <header class="header" id="site-header">
   <a href={localePath(lang)} class="logo">Yapplic</a>
 
   <nav class="nav">
-    <a href={localePath(lang)} aria-current={current("/")}>{t("nav.home")}</a>
+    <a href={`${localePath(lang)}#apps`}>{t("nav.apps")}</a>
     <a href={localePath(lang, "/about")} aria-current={current("/about")}>{t("nav.about")}</a>
     <button
       id="theme-toggle"
@@ -36,15 +36,34 @@ const switchLocales = locales.filter((locale) => locale !== lang);
       type="button"
       aria-label={t("theme.toggle")}
       aria-pressed="false"
-    >🌓</button>
-    {switchLocales.map((locale) => (
-      <a
-        href={localePath(locale, basePath)}
-        class="lang-switch"
-        lang={locale}
-        aria-label={localeSwitchLabels[locale]}
-      >{localeNames[locale]}</a>
-    ))}
+    >
+      <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </button>
+    <details class="lang-menu" id="lang-menu">
+      <summary class="lang-switch">
+        <span class="sr-only">{t("lang.label")}: </span>{localeNames[lang]}
+        <svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4" /></svg>
+      </summary>
+      <ul class="lang-list">
+        {locales.map((locale) => (
+          <li>
+            <a
+              href={localePath(locale, basePath)}
+              lang={locale}
+              hreflang={locale}
+              aria-label={localeSwitchLabels[locale]}
+              aria-current={locale === lang ? "true" : undefined}
+            >{localeFullNames[locale]}</a>
+          </li>
+        ))}
+      </ul>
+    </details>
   </nav>
 </header>
 
@@ -73,7 +92,9 @@ const switchLocales = locales.filter((locale) => locale !== lang);
   }
 
   .logo {
-    font-weight: 700;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-optical-sizing: auto;
     text-decoration: none;
     color: var(--text);
     font-size: 1.1rem;
@@ -96,12 +117,12 @@ const switchLocales = locales.filter((locale) => locale !== lang);
     color: var(--accent);
   }
 
-  /* Theme toggle button */
+  /* Theme toggle button: shows the icon of the active theme */
   .theme-toggle {
+    display: inline-flex;
     background: none;
     border: none;
     padding: 0;
-    font-size: 1.2rem;
     cursor: pointer;
     color: var(--text);
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -112,19 +133,75 @@ const switchLocales = locales.filter((locale) => locale !== lang);
     transform: scale(1.1);
   }
 
-  /* Language switcher */
+  .icon-moon,
+  :global(:root.dark) .icon-sun {
+    display: none;
+  }
+
+  :global(:root.dark) .icon-moon {
+    display: block;
+  }
+
+  /* Language menu: <details> works without JavaScript */
+  .lang-menu {
+    position: relative;
+  }
+
   .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    list-style: none;
+    cursor: pointer;
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     padding: 0.25rem 0.6rem;
     border: 1px solid var(--border-strong);
     border-radius: 999px;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transition: border-color 0.2s ease;
   }
 
-  .lang-switch:hover {
+  .lang-switch::-webkit-details-marker {
+    display: none;
+  }
+
+  .lang-switch:hover,
+  .lang-menu[open] .lang-switch {
     border-color: var(--accent);
+  }
+
+  .lang-menu[open] .lang-switch svg {
+    transform: rotate(180deg);
+  }
+
+  .lang-list {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    min-width: 9rem;
+    margin: 0;
+    padding: 0.4rem;
+    list-style: none;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .lang-list a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+  }
+
+  .lang-list a:hover {
+    background: var(--border);
+  }
+
+  .lang-list a[aria-current="true"] {
+    color: var(--accent);
+    font-weight: 600;
   }
 
   /* Small phones: tighter spacing so logo + nav fit on one row */
@@ -141,3 +218,19 @@ const switchLocales = locales.filter((locale) => locale !== lang);
     }
   }
 </style>
+
+<script>
+  // Close the language menu with Escape (returning focus to its button) or by clicking outside.
+  const menu = document.getElementById("lang-menu") as HTMLDetailsElement | null;
+  if (menu) {
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menu.open) {
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      }
+    });
+    document.addEventListener("click", (event) => {
+      if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
+    });
+  }
+</script>

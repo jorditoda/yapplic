@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PhoneMockup from "./PhoneMockup.astro";
+import StoreBadges from "./StoreBadges.astro";
 import { apps } from "../data/apps";
 import { Image } from "astro:assets";
 import { defaultLocale, useTranslations, type Locale } from "../i18n";
@@ -11,6 +12,8 @@ interface Props {
 
 const { lang = defaultLocale } = Astro.props;
 const t = useTranslations(lang);
+
+const platformNames = { ios: "iOS", android: "Android" } as const;
 
 
 
@@ -25,9 +28,12 @@ const softwareItemList = {
     item: {
       "@type": "SoftwareApplication",
       name: app.title,
-      description: app.description[lang],
+      description: `${app.tagline[lang]} ${app.details[lang]}`,
       applicationCategory: app.category,
-      url: app.link,
+      operatingSystem: app.platforms.map((p) => platformNames[p]).join(", "),
+      offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      url: app.link ?? app.appStore ?? app.playStore,
+      sameAs: [app.appStore, app.playStore].filter(Boolean),
       image: new URL(app.icon.src, Astro.site).href,
       inLanguage: lang,
       author: { "@id": new URL("/#person", Astro.site).href },
@@ -47,12 +53,21 @@ const softwareItemList = {
   <!-- HERO -->
   <section class="hero fade-in">
     <h1 class="slide-up">Yapplic</h1>
-    <p class="slide-up delay-1">
-      {t("hero.tagline")}
-    </p>
+    <p class="hero-tagline slide-up delay-1">{t("hero.tagline")}</p>
+    <p class="hero-sub slide-up delay-1">{t("hero.sub")}</p>
+
+    <nav class="app-grid slide-up delay-2" aria-label={t("hero.appsNav")}>
+      {apps.map((app) => (
+        <a href={`#${app.id}`}>
+          <Image src={app.icon} alt="" width={112} height={112} format="webp" />
+          <span>{app.title}</span>
+        </a>
+      ))}
+    </nav>
   </section>
 
   <!-- APPS FULL SECTIONS -->
+  <section id="apps">
   {apps.map((app, index) => (
     <section
       id={app.id}
@@ -69,10 +84,17 @@ const softwareItemList = {
           loading="lazy"
         />
         <h2>{app.title}</h2>
-        <p>{app.description[lang]}</p>
-        <a href={app.link} class="cta-button" target="_blank" rel="noopener">
-          {t("app.cta").replace("{title}", app.title)}<span class="sr-only">{t("link.newTab")}</span>
-        </a>
+        <p>{app.tagline[lang]}</p>
+        <p>{app.details[lang]}</p>
+        <p class="app-platforms">
+          {app.platforms.map((p) => platformNames[p]).join(" · ")}
+        </p>
+        <StoreBadges app={app} lang={lang} />
+        {app.link && (
+          <a href={app.link} class="app-link" target="_blank" rel="noopener">
+            {t("app.cta").replace("{title}", app.title)}<span class="sr-only">{t("link.newTab")}</span>
+          </a>
+        )}
       </div>
 
       <div class="app-mockup">
@@ -83,5 +105,6 @@ const softwareItemList = {
       </div>
     </section>
   ))}
+  </section>
 
 </BaseLayout>

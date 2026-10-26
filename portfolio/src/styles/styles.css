@@ -1,25 +1,26 @@
 /* -------------------------------------------------
    VARIABLES & THEME
 ------------------------------------------------- */
+/* Warm Mediterranean palette. Text pairings meet 4.5:1 or better. */
 :root {
-  --bg: #ffffff;
-  --text: #111111;
-  --muted: #666666;
-  --accent: #007aff;
-  --accent-light: #e5f0ff;
-  --radius: 12px;
-  --border: rgba(0, 0, 0, 0.05);
-  --border-strong: rgba(0, 0, 0, 0.15);
-  --header-bg: rgba(255, 255, 255, 0.6);
-  --header-bg-shrink: rgba(255, 255, 255, 0.75);
+  --bg: #fbf6ee;
+  --text: #2b2118;
+  --muted: #6e5d4e;
+  --accent: #b04a22;
+  --accent-hover: #9a3f1c;
   --cta-text: #ffffff;
-  --cta-hover: #005fcc;
-  /* Inter was declared here but never loaded (no @font-face, no font request),
-     so the site has always rendered in the system fallback. Declare that
-     honestly — it costs zero bytes and no third-party round trip. To use the
-     real Inter, self-host the woff2 files and add an @font-face block. */
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --surface: #ffffff;
+  --border: rgba(43, 33, 24, 0.08);
+  --border-strong: rgba(43, 33, 24, 0.18);
+  --header-bg: rgba(251, 246, 238, 0.6);
+  --header-bg-shrink: rgba(251, 246, 238, 0.75);
+  --shadow: 0 10px 30px rgba(43, 33, 24, 0.08);
+  --radius: 14px;
+  --radius-section: 28px;
+  /* Self-hosted variable fonts (imported in BaseLayout), system stack as fallback. */
+  --font: "DM Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-heading: "Fraunces Variable", Georgia, "Times New Roman", serif;
 
   /* Apple-style spacing scale */
   --space-1: 0.25rem;
@@ -36,34 +37,34 @@
    or explicitly through the theme toggle. Components only read these tokens. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #0d0d0d;
-    --text: #f2f2f2;
-    --muted: #aaaaaa;
-    --accent: #4da3ff;
-    --accent-light: #1a1a1a;
-    --border: rgba(255, 255, 255, 0.1);
-    --border-strong: rgba(255, 255, 255, 0.25);
-    --header-bg: rgba(0, 0, 0, 0.4);
-    --header-bg-shrink: rgba(0, 0, 0, 0.55);
-    --cta-text: #0d0d0d;
-    --cta-hover: #6db8ff;
-    --app-surface: rgba(255, 255, 255, 0.05);
+    --bg: #1c1612;
+    --text: #f3eae0;
+    --muted: #b3a595;
+    --accent: #e8875e;
+    --accent-hover: #f0a07e;
+    --cta-text: #1c1612;
+    --surface: #26201b;
+    --border: rgba(243, 234, 224, 0.1);
+    --border-strong: rgba(243, 234, 224, 0.25);
+    --header-bg: rgba(28, 22, 18, 0.6);
+    --header-bg-shrink: rgba(28, 22, 18, 0.75);
+    --shadow: 0 10px 30px rgba(10, 6, 3, 0.4);
   }
 }
 
 :root.dark {
-  --bg: #0d0d0d;
-  --text: #f2f2f2;
-  --muted: #aaaaaa;
-  --accent: #4da3ff;
-  --accent-light: #1a1a1a;
-  --border: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.25);
-  --header-bg: rgba(0, 0, 0, 0.4);
-  --header-bg-shrink: rgba(0, 0, 0, 0.55);
-  --cta-text: #0d0d0d;
-  --cta-hover: #6db8ff;
-  --app-surface: rgba(255, 255, 255, 0.05);
+  --bg: #1c1612;
+  --text: #f3eae0;
+  --muted: #b3a595;
+  --accent: #e8875e;
+  --accent-hover: #f0a07e;
+  --cta-text: #1c1612;
+  --surface: #26201b;
+  --border: rgba(243, 234, 224, 0.1);
+  --border-strong: rgba(243, 234, 224, 0.25);
+  --header-bg: rgba(28, 22, 18, 0.6);
+  --header-bg-shrink: rgba(28, 22, 18, 0.75);
+  --shadow: 0 10px 30px rgba(10, 6, 3, 0.4);
 }
 
 /* -------------------------------------------------
@@ -81,6 +82,12 @@ main {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-optical-sizing: auto;
 }
 
 h2 {
@@ -105,7 +112,7 @@ h2 {
 ------------------------------------------------- */
 .hero {
   text-align: center;
-  padding: 4rem 0;
+  padding: 4rem 0 2rem;
 }
 
 .hero h1 {
@@ -113,9 +120,63 @@ h2 {
   margin: 0;
 }
 
-.hero p {
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0;
+}
+
+.hero-sub {
   color: var(--muted);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  max-width: 520px;
+  margin: 0.75rem auto 0;
+}
+
+.app-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4) var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.app-grid a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 4.5rem;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.app-grid img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12.5px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.app-grid a:hover img {
+  transform: translateY(-3px);
+}
+
+.app-grid a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* -------------------------------------------------
@@ -171,10 +232,21 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
-  margin: var(--space-8) 0;
-  padding: var(--space-7) var(--space-5);
-  border-radius: 24px;
-  background: var(--app-surface, var(--app-bg));
+  margin: var(--space-6) 0;
+  padding: var(--space-6) var(--space-5);
+  scroll-margin-top: 5rem;
+  border-radius: var(--radius-section);
+  background: var(--app-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .app-section {
+    background: color-mix(in srgb, var(--app-bg) 10%, var(--bg));
+  }
+}
+
+:root.dark .app-section {
+  background: color-mix(in srgb, var(--app-bg) 10%, var(--bg));
 }
 
 .app-section.left .app-text { order: 1; }
@@ -199,6 +271,28 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
+.app-text p.app-platforms {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.app-link {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-link:hover {
+  text-decoration: underline;
+}
+
+.app-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* CTA */
 .cta-button {
   display: inline-block;
@@ -213,7 +307,7 @@ h2 {
 
 .cta-button:hover {
   transform: translateY(-3px);
-  background: var(--cta-hover);
+  background: var(--accent-hover);
 }
 
 .cta-button:focus-visible,
@@ -238,6 +332,31 @@ h2 {
   max-width: 600px;
   margin: 1rem auto 0;
   color: var(--muted);
+}
+
+.about-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cta-secondary {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.cta-secondary:hover {
+  background: var(--accent);
+  color: var(--cta-text);
 }
 
 .about-section {
@@ -266,7 +385,8 @@ h2 {
 
 .tech-grid span {
   padding: 0.6rem 1rem;
-  background: var(--accent-light);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   font-weight: 500;
   transition: transform 0.2s ease;
@@ -290,8 +410,27 @@ h2 {
 }
 
 @media (max-width: 500px) {
+  /* Top padding clears the fixed header (60px). */
   main {
-    padding: 1rem;
+    padding: 4rem 1rem 1rem;
+  }
+
+  .hero {
+    padding: 2rem 0;
+  }
+
+  .app-section {
+    margin: 2rem 0;
+  }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+  }
+
+  .app-grid a {
+    width: 100%;
   }
 
   .app-section {

@@ -14,14 +14,17 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <nav class="footer-nav">
-    <a href={localePath(lang)} aria-current={current("/")}>{t("nav.home")}</a>
+    <a href={`${localePath(lang)}#apps`}>{t("nav.apps")}</a>
     <a href={localePath(lang, "/about")} aria-current={current("/about")}>{t("nav.about")}</a>
     <a href="https://github.com/jorditoda" target="_blank" rel="noopener" class="github-link">GitHub<span class="sr-only">{t("link.newTab")}</span></a>
+    <a href="https://www.linkedin.com/in/jordi-toda/" target="_blank" rel="noopener">LinkedIn<span class="sr-only">{t("link.newTab")}</span></a>
   </nav>
 
-  <script  data-name="bmc-button" data-slug="stormfkrs" data-color="#FFDD00" data-emoji="🍺" data-font="Cookie" data-text={t("footer.donate")} data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"></script>
+  <a href="https://www.buymeacoffee.com/stormfkrs" target="_blank" rel="noopener" class="donate">
+    <span aria-hidden="true">🍺</span> {t("footer.donate")}<span class="sr-only">{t("link.newTab")}</span>
+  </a>
 
-  <p>© {year} Yapplic — {t("footer.built")} Jordi Toda — {t("footer.made")}</p>
+  <p>© {year} Yapplic — {t("footer.made")}</p>
 </footer>
 
 <style>
@@ -51,5 +54,27 @@ const year = new Date().getFullYear();
 
   .footer-nav a:hover {
     color: var(--accent);
+  }
+
+  .donate {
+    display: inline-block;
+    margin: 0.5rem 0 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--accent);
+    color: var(--cta-text);
+    border-radius: var(--radius);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .donate:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+  }
+
+  .donate:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 </style>
