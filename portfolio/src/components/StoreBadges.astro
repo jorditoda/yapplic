@@ -23,6 +23,10 @@ const playBadges = import.meta.glob<{ default: ImageMetadata }>(
 
 const appStoreBadge = appStoreBadges[`../assets/badges/${lang}/app-store.svg`].default;
 const playBadge = playBadges[`../assets/badges/${lang}/google-play.png`].default;
+
+// Google's PNGs carry different amounts of built-in clear space per language, so each
+// gets the height at which the visible badge measures 40px, like the App Store one.
+const playHeights: Record<Locale, number> = { en: 60, es: 52, ca: 52 };
 ---
 
 {(app.appStore || app.playStore) && (
@@ -43,7 +47,7 @@ const playBadge = playBadges[`../assets/badges/${lang}/google-play.png`].default
         <Image
           src={playBadge}
           alt={t("store.playStore")}
-          height={46}
+          height={playHeights[lang]}
           class="badge badge-play"
         />
         <span class="sr-only">{t("link.newTab")}</span>
@@ -61,10 +65,7 @@ const playBadge = playBadges[`../assets/badges/${lang}/google-play.png`].default
   margin-bottom: 1.5rem;
 }
 
-/* Google's PNG carries its own clear space, so it needs a taller box for the
-   visible badge to match the App Store badge at 40px. */
 .badge-apple { height: 40px; width: auto; }
-.badge-play { height: 46px; width: auto; }
 
 .store-badges a {
   display: inline-flex;

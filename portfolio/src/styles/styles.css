@@ -410,8 +410,9 @@ h2 {
 }
 
 @media (max-width: 500px) {
+  /* Top padding clears the fixed header (60px). */
   main {
-    padding: 1rem;
+    padding: 4rem 1rem 1rem;
   }
 
   .hero {
