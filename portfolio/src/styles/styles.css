@@ -1,25 +1,26 @@
 /* -------------------------------------------------
    VARIABLES & THEME
 ------------------------------------------------- */
+/* Warm Mediterranean palette. Text pairings meet 4.5:1 or better. */
 :root {
-  --bg: #ffffff;
-  --text: #111111;
-  --muted: #666666;
-  --accent: #007aff;
-  --accent-light: #e5f0ff;
-  --radius: 12px;
-  --border: rgba(0, 0, 0, 0.05);
-  --border-strong: rgba(0, 0, 0, 0.15);
-  --header-bg: rgba(255, 255, 255, 0.6);
-  --header-bg-shrink: rgba(255, 255, 255, 0.75);
+  --bg: #fbf6ee;
+  --text: #2b2118;
+  --muted: #6e5d4e;
+  --accent: #b04a22;
+  --accent-hover: #9a3f1c;
   --cta-text: #ffffff;
-  --cta-hover: #005fcc;
-  /* Inter was declared here but never loaded (no @font-face, no font request),
-     so the site has always rendered in the system fallback. Declare that
-     honestly — it costs zero bytes and no third-party round trip. To use the
-     real Inter, self-host the woff2 files and add an @font-face block. */
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --surface: #ffffff;
+  --border: rgba(43, 33, 24, 0.08);
+  --border-strong: rgba(43, 33, 24, 0.18);
+  --header-bg: rgba(251, 246, 238, 0.6);
+  --header-bg-shrink: rgba(251, 246, 238, 0.75);
+  --shadow: 0 10px 30px rgba(43, 33, 24, 0.08);
+  --radius: 14px;
+  --radius-section: 28px;
+  /* Self-hosted variable fonts (imported in BaseLayout), system stack as fallback. */
+  --font: "DM Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-heading: "Fraunces Variable", Georgia, "Times New Roman", serif;
 
   /* Apple-style spacing scale */
   --space-1: 0.25rem;
@@ -36,34 +37,37 @@
    or explicitly through the theme toggle. Components only read these tokens. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #0d0d0d;
-    --text: #f2f2f2;
-    --muted: #aaaaaa;
-    --accent: #4da3ff;
-    --accent-light: #1a1a1a;
-    --border: rgba(255, 255, 255, 0.1);
-    --border-strong: rgba(255, 255, 255, 0.25);
-    --header-bg: rgba(0, 0, 0, 0.4);
-    --header-bg-shrink: rgba(0, 0, 0, 0.55);
-    --cta-text: #0d0d0d;
-    --cta-hover: #6db8ff;
-    --app-surface: rgba(255, 255, 255, 0.05);
+    --bg: #1c1612;
+    --text: #f3eae0;
+    --muted: #b3a595;
+    --accent: #e8875e;
+    --accent-hover: #f0a07e;
+    --cta-text: #1c1612;
+    --surface: #26201b;
+    --border: rgba(243, 234, 224, 0.1);
+    --border-strong: rgba(243, 234, 224, 0.25);
+    --header-bg: rgba(28, 22, 18, 0.6);
+    --header-bg-shrink: rgba(28, 22, 18, 0.75);
+    --shadow: 0 10px 30px rgba(10, 6, 3, 0.4);
+    /* Replaced by per-app tints in the app-section rework. */
+    --app-surface: rgba(243, 234, 224, 0.05);
   }
 }
 
 :root.dark {
-  --bg: #0d0d0d;
-  --text: #f2f2f2;
-  --muted: #aaaaaa;
-  --accent: #4da3ff;
-  --accent-light: #1a1a1a;
-  --border: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.25);
-  --header-bg: rgba(0, 0, 0, 0.4);
-  --header-bg-shrink: rgba(0, 0, 0, 0.55);
-  --cta-text: #0d0d0d;
-  --cta-hover: #6db8ff;
-  --app-surface: rgba(255, 255, 255, 0.05);
+  --bg: #1c1612;
+  --text: #f3eae0;
+  --muted: #b3a595;
+  --accent: #e8875e;
+  --accent-hover: #f0a07e;
+  --cta-text: #1c1612;
+  --surface: #26201b;
+  --border: rgba(243, 234, 224, 0.1);
+  --border-strong: rgba(243, 234, 224, 0.25);
+  --header-bg: rgba(28, 22, 18, 0.6);
+  --header-bg-shrink: rgba(28, 22, 18, 0.75);
+  --shadow: 0 10px 30px rgba(10, 6, 3, 0.4);
+  --app-surface: rgba(243, 234, 224, 0.05);
 }
 
 /* -------------------------------------------------
@@ -81,6 +85,12 @@ main {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-optical-sizing: auto;
 }
 
 h2 {
@@ -173,7 +183,7 @@ h2 {
   gap: 3rem;
   margin: var(--space-8) 0;
   padding: var(--space-7) var(--space-5);
-  border-radius: 24px;
+  border-radius: var(--radius-section);
   background: var(--app-surface, var(--app-bg));
 }
 
@@ -235,7 +245,7 @@ h2 {
 
 .cta-button:hover {
   transform: translateY(-3px);
-  background: var(--cta-hover);
+  background: var(--accent-hover);
 }
 
 .cta-button:focus-visible,
@@ -288,7 +298,8 @@ h2 {
 
 .tech-grid span {
   padding: 0.6rem 1rem;
-  background: var(--accent-light);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   font-weight: 500;
   transition: transform 0.2s ease;

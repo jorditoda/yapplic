@@ -1,8 +1,8 @@
 # Yapplic Portfolio
 
 Source code of [yapplic.com](https://yapplic.com) — the portfolio of Jordi Toda, showcasing
-the mobile apps built under the Yapplic name: **Rally HUD**, **Like This**,
-**PointerPointer**, **Hold King**, **Sad Trombone** and **Dosi**.
+the mobile apps built under the Yapplic name: **Dosi**, **Rally HUD**,
+**Sad Trombone**, **PointerPointer**, **Hold King**, **Like This** and **Vintage Counter**.
 
 ## Stack
 
@@ -19,6 +19,19 @@ npm run dev      # dev server at http://localhost:4321
 npm run build    # static output in dist/
 npm run preview  # serve the production build locally
 ```
+
+## Social image (`public/og.png`)
+
+The 1200×630 share image is generated, not drawn by hand. It uses the brand colours,
+Fraunces and DM Sans, and the icons of every app. To regenerate it after adding or
+changing an app:
+
+1. Add the icon import to `src/data/apps.ts`. The script reads the icon imports in
+   order, which is also the page order.
+2. Run `npm run og` and commit the updated `public/og.png`.
+
+The script is `scripts/build-og.mjs` (`sharp` + `opentype.js`; the fonts come from the
+`@fontsource` dev dependencies). To change the headline or colours, edit it directly.
 
 ## Project structure
 
